@@ -1,0 +1,30 @@
+meta {
+  name: update
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url_admin}}/aparatur-quran/2
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "aparatur_id":"16",
+    "marhalah":"Ula",
+    "th_ajaran_h":"1444-1445",
+    "jabatan":"Muallim",
+    "faslah":"J-2",
+    "ruang":"atas"
+  }
+}

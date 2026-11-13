@@ -1,0 +1,15 @@
+meta {
+  name: kelas-id
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/izin-madrasah/kelas/8111
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

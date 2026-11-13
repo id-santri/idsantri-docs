@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/apb/journals?transaction_id=6000
+  body: none
+  auth: bearer
+}
+
+params:query {
+  transaction_id: 6000
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,26 @@
+meta {
+  name: destroy
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{url_admin}}/absensi/sekolah?bulan_ujian=03-2&th_ajaran_h=1444-1445&tingkat_id=Aly&kelas=1-a
+  body: json
+  auth: bearer
+}
+
+params:query {
+  bulan_ujian: 03-2
+  th_ajaran_h: 1444-1445
+  tingkat_id: Aly
+  kelas: 1-a
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: ~/list/in-group
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{url_admin}}/iuran/list/in-group
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

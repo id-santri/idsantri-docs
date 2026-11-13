@@ -1,0 +1,19 @@
+meta {
+  name: upload image
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url_admin}}/pulangan/config/1/image
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipart-form {
+  p_tt: @file(C:\Users\idsantri\Pictures\Screenshots\Cuplikan layar 2026-01-12 171148.png) @contentType(image/png)
+}

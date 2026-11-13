@@ -1,0 +1,25 @@
+meta {
+  name: santri
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/export/santri
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "status":["registrasi","diberhentikan","cuti/istirahat"]
+  }
+}

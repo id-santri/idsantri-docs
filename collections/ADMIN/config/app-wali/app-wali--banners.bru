@@ -1,0 +1,30 @@
+meta {
+  name: app-wali--banners
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url_admin}}/config/app-wali/banners
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "banners": [
+      {
+          "expired_at": "2022-12-30",
+          "content": "Pondok Pesantren ini terus memberikan layanan"
+      }
+    ]
+  }
+}

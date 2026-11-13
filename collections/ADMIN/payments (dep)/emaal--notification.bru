@@ -1,0 +1,24 @@
+meta {
+  name: emaal--notification
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url_admin}}/payments/emaal/notification
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 39d07cb20519896edd14629d05c2d00c53f46be66667285f01c67c58d8d682ac
+}
+
+body:json {
+  {
+    "member_id":8000,
+    "paymentlist_code":"1122",
+    "nominal":150000,
+    "noref":"1122"
+  }
+}

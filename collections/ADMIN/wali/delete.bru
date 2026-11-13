@@ -1,0 +1,27 @@
+meta {
+  name: delete
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{url_admin}}/wali/4469
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "ayah":"update",
+      "ibu":"iddate",
+      "a_nik":"0987654321123456"
+  }
+}

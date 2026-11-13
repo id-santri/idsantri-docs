@@ -1,0 +1,33 @@
+meta {
+  name: create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/pulangan/config
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "th_ajaran_h": "1445-1446",
+    "nama": "idul fitri",
+    "tgl_pulang_m": "2026-02-01",
+    "tgl_pulang_h": "14470813",
+    "tgl_kembali_m": "2026-03-05",
+    "tgl_kembali_h": "14470916",
+    "tgl_surat_m": null,
+    "tgl_surat_h": null,
+    "no_surat": null,
+    "p_jabatan": null,
+    "p_nama": null,
+    "p_tt": null,
+    "keterangan": null
+  }
+}

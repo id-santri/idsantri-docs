@@ -1,0 +1,19 @@
+meta {
+  name: update
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url_admin}}/iuran-payments/2
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

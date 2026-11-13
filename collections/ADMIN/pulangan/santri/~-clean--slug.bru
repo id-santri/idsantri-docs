@@ -1,0 +1,15 @@
+meta {
+  name: ~/clean/:slug
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{url_admin}}/pulangan/santri/clean/1445-1446~idul-fitri
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

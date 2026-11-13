@@ -1,0 +1,41 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/mutasi
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "santri":[
+          {
+              "santri_id":"8000",
+              "new_domisili":"a-02",
+              "new_keterangan":"abc"
+          },
+          {
+              "santri_id":"8100",
+              "new_domisili":"a-01",
+              "new_keterangan":null
+          },
+          {
+              "santri_id":"8000",
+              "new_domisili":"b-01",
+              "new_keterangan":null
+          }
+      ]
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: ~/lists/wilayah
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/ugt/pjgt/lists/wilayah
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

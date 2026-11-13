@@ -1,0 +1,19 @@
+meta {
+  name: indisipliner
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/statistik/indisipliner/1445-1446
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

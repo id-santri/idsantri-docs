@@ -1,0 +1,19 @@
+meta {
+  name: domisili
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/statistik/domisili
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

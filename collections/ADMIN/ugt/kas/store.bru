@@ -1,0 +1,27 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/ugt/kas
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "keperluan":"abc def",
+      "flag":"+",
+      "nominal":"1000"
+  }
+}

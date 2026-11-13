@@ -1,0 +1,27 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/mutasi/133
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "santri_id":"8000",
+      "new_domisili":"a-21",
+      "new_keterangan":null
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: mutasi
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/export/mutasi
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

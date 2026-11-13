@@ -1,0 +1,25 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/apb/budget-configs
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "th_ajaran_h":"1111-1111"
+  }
+}

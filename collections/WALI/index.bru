@@ -1,0 +1,26 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_wali}}
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test('set token', () => {
+      const responseJson = res.getBody();
+      const { token } = responseJson;
+  
+      expect(token).to.not.equals('');
+  
+      bru.setEnvVar('token_wali', token);
+  });
+}

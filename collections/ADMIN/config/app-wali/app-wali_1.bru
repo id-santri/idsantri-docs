@@ -1,0 +1,25 @@
+meta {
+  name: app-wali_1
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/config/app-wali
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "wa": "098978"
+  }
+}

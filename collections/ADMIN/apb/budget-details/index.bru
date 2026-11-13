@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/apb/budget-details?budget_id=331
+  body: none
+  auth: bearer
+}
+
+params:query {
+  budget_id: 331
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

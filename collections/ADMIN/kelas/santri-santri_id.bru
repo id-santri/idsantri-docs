@@ -1,0 +1,15 @@
+meta {
+  name: /santri/:santri_id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/kelas/santri/8000
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

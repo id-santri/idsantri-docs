@@ -1,0 +1,23 @@
+meta {
+  name: emaal--cek-tagihan
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url_admin}}/payments/emaal/check-tagihan
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: c35763f6d36668e560551774cb26edd2bce69066f122f11bbcdc7967c1da1e5b
+}
+
+body:json {
+  {
+    "instansi_code":"6020",
+    "member_id":8000,
+    "paymentlist_code":"1122"
+  }
+}

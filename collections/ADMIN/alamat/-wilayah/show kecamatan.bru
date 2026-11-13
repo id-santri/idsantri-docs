@@ -1,0 +1,19 @@
+meta {
+  name: show kecamatan
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/alamat/kecamatan?kabupaten_id=3526
+  body: none
+  auth: bearer
+}
+
+params:query {
+  kabupaten_id: 3526
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

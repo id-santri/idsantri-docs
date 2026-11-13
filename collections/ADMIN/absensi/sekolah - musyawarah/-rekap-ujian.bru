@@ -1,0 +1,25 @@
+meta {
+  name: -rekap-ujian
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{url_admin}}/absensi/sekolah/rekap-ujian?th_ajaran_h=1444-1445&tingkat_id=ts&kelas=4-a
+  body: multipartForm
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1444-1445
+  tingkat_id: ts
+  kelas: 4-a
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

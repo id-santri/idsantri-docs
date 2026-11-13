@@ -1,0 +1,29 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/apb/budget-details
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "budget_id":"331",
+    "item":"test",
+    "qty":9,
+    "satuan":"kali",
+    "nominal":1000
+  }
+}

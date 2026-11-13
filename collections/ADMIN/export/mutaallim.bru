@@ -1,0 +1,15 @@
+meta {
+  name: mutaallim
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/export/mutaallim
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

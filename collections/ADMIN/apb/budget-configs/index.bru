@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/apb/budget-configs?th_ajaran_h=1445-1446
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1445-1446
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

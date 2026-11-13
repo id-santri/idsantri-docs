@@ -1,0 +1,19 @@
+meta {
+  name: aparatur del
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{url_admin}}/images/aparatur/100
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

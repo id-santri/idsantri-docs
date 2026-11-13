@@ -1,0 +1,30 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/santri
+  body: json
+  auth: bearer
+}
+
+params:query {
+  ~domisili: a-01
+  ~status: aktif
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "columns": ["id","nama","domisili","data_akhir"],
+    "query":{
+   //   "status":"aktif" //,
+    //  "domisili":"a-01"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: app-wali--profile
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{url_admin}}/config/app-wali/profile
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "profile": "<p><em>Pondok Pesantren ini terus memberikan layanan untuk wali santri</em></p>"
+  }
+}

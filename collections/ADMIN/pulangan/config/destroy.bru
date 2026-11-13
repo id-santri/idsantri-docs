@@ -1,0 +1,15 @@
+meta {
+  name: destroy
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{url_admin}}/pulangan/config/7
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

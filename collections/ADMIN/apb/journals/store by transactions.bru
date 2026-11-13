@@ -1,0 +1,40 @@
+meta {
+  name: store by transactions
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url_admin}}/apb/journals/transactions/6000
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "journals": [
+      {
+        "id": 21447,
+        "account_id": "1.02.0",
+        "transaction_id": 6000,
+        "debit": 100000,
+        "kredit": 0
+      },
+      {
+        "id": 21448,
+        "account_id": "4.01.9",
+        "transaction_id": 6000,
+        "debit": 0,
+        "kredit": 100000      
+      }
+    ]
+  }
+}

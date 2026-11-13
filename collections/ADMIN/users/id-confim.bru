@@ -1,0 +1,21 @@
+meta {
+  name: /:id/confim
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url_admin}}/users/1/confirm
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "confirm":1
+      }
+}

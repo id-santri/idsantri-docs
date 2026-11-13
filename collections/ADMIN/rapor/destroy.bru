@@ -1,0 +1,15 @@
+meta {
+  name: destroy
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{url_admin}}/rapor/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

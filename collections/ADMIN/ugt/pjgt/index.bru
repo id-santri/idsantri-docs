@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/ugt/pjgt?wilayah=geger
+  body: none
+  auth: bearer
+}
+
+params:query {
+  wilayah: geger
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

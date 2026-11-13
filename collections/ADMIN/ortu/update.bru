@@ -1,0 +1,30 @@
+meta {
+  name: update
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url_admin}}/ortu/5382
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "ayah":"huzaa",
+      "ibu":"iddate",
+      "a_tgl_lahir":"2022-12-01",
+      "a_nik":"3172032005840010",
+      "i_nik":"3172034212900009",
+      "jumlah_anak":"-1"
+  }
+}

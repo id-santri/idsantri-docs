@@ -1,0 +1,25 @@
+meta {
+  name: reports--keterangan-berhenti_1
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url_admin}}/config/reports/keterangan-berhenti
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "footer": "<p><strong>tembusan</strong></p><p>Lembar 11 Kantor Sekretariat; Lembar 2 Kantor Daerah; Lembar 3 Kantor Madrasah; Lembar 4 yang bersangkutan.</p><p><strong>Keterangan</strong></p><p>Yang bersangkutan diperkenankan bermukim di Pondok Pesantren maksimal 3 hari sejak surat ini dikeluarkan</p>"
+  }
+}

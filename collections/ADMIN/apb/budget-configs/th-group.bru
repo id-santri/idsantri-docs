@@ -1,0 +1,19 @@
+meta {
+  name: th-group
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/apb/budget-configs/q/1441-1442/Hasil Usaha
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

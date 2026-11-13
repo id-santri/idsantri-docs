@@ -1,0 +1,15 @@
+meta {
+  name: lists-jabatan
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{url_admin}}/lists/jabatan
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

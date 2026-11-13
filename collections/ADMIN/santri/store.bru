@@ -1,0 +1,35 @@
+meta {
+  name: store
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{url_admin}}/santri
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "id":8907, // backend generator
+      "nama":"ad",
+      "sex":"L",
+      "ortu_id":"5368",
+      "wali_id":"5455",
+      "wali_status":"x a",
+      "jl":"abc",
+      "tgl_daftar_m":"2020-01-01",
+      "tgl_daftar_h":"14480210",
+    "nkk":"1234222244445555",
+    "nik":9090787856563431
+  }
+}

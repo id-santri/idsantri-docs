@@ -1,0 +1,30 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/aparatur
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "nama":"oets",
+    "nik":"3526010402720017",
+    "sex":"L",
+  //  "email":"aa",
+  //  "telepon":"d4",
+    "nyasar":"nyasar"
+  }
+}

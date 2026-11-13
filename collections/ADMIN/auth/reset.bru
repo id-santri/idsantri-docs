@@ -1,0 +1,46 @@
+meta {
+  name: reset
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url_admin}}/auth/reset-password
+  body: json
+  auth: bearer
+}
+
+params:query {
+  ~token: 6985c1f08d38c5aeaea482cdfccaa39d4c843dc1c15244d3f6eced584c0afd34
+  ~email: idsantri.online@gmail.com
+  ~password: 123456
+  ~password_confirmation: 123456
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "email":"ok@gmail.com",
+      "password":"112233",
+      "token":"3f5be28efa50b8f34376a7a6f24fc05d48a24da7a7514dbb58cfd7f769737311"
+  }
+}
+
+tests {
+  test('set token', () => {
+      const responseJson = res.getBody();
+      const { data } = responseJson;
+  
+      expect(data).to.haveOwnProperty('token');
+      expect(data.token).to.not.equals('');
+  
+      bru.setEnvVar('token', data.token);
+  });
+}

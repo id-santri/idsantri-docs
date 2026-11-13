@@ -1,0 +1,25 @@
+meta {
+  name: update user
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{url_admin}}/user
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "username":"admin",
+      "phone":"1234567890123",
+      "name":"USad M.Mis",
+      "abc":121
+  }
+  
+}

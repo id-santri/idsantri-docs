@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/domisili/2
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "id":"Adaa a",
+    "santri_id":"8000",
+    "domisili":"a-14",
+    "keterangan":"tda"
+  }
+}

@@ -1,0 +1,37 @@
+meta {
+  name: forgot
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url_admin}}/auth/forgot-password
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "email":"ok@gmail.com"
+  }
+}
+
+tests {
+  test('set token', () => {
+      const responseJson = res.getBody();
+      const { data } = responseJson;
+  
+      expect(data).to.haveOwnProperty('token');
+      expect(data.token).to.not.equals('');
+  
+      bru.setEnvVar('token', data.token);
+  });
+}

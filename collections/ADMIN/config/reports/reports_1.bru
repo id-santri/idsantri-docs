@@ -1,0 +1,45 @@
+meta {
+  name: reports_1
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/config/reports
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "registrasi": {
+          "footer": "<p><em> Lembar ini diberikan kepada:</em> <br />1) Wali Kelas; 2) Yang Bersangkutan.</p>"
+      },
+      "permohonan_berhenti": {
+          "footer": "<p>Keterangan:</p><ul><li>Lembar 1 Kantor Sekretariat; Lembar 2 Kantor Daerah; Lembar 3 Kantor Madrasah; Lembar 4 yang bersangkutan</li><li>Proses pengurusan surat ini harus selesai dalam jangka 7 hari sejak tanggal di dalam surat</li></ul>"
+      },
+      "keterangan_berhenti": {
+          "footer": "<p><strong>Tembusan</strong></p><p>Lembar 1 Kantor Sekretariat; Lembar 2 Kantor Daerah; Lembar 3 Kantor Madrasah; Lembar 4 yang bersangkutan.</p><p><strong>Keterangan</strong></p><p>Yang bersangkutan diperkenankan bermukim di Pondok Pesantren maksimal 3 hari sejak surat ini dikeluarkan</p>"
+      },
+      "ugt_surat_tugas": {
+          "footer": "<p><strong>Surat ini diberikan kepada:</strong></p><p>1) Guru Tugas bersangkutan; 2) Wali Guru Tugas; 3) Penanggung Jawab Guru Tugas; 4) Arsip</p>"
+      },
+      "ugt_kuitansi": {
+          "footer": "<ul><li>Terimakasih atas kepercayaannya</li><li>Lembar ini sah apabila distempel dan ditandatangan</li></ul>"
+      },
+      "izin_madrasah": {
+          "footer": ""
+      },
+      "izin_pesantren": {
+          "footer": "<ul><li>Surat ini harus diserahkan kembali kepada pihak keamanan setelah kembali ke Pesantren paling lambat pukul 21.00 WIB pada hari yang telah ditentukan</li><li>Lembar 1: Santri, Lembar 2: Madrasah, Lembar 3: Sekolah Formal, Lembar 4: Daerah</li></ul>"
+      }
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: nilai-ahwal
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{url_wali}}/nilai-ahwal?kelas_id=7432
+  body: none
+  auth: bearer
+}
+
+params:query {
+  kelas_id: 7432
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

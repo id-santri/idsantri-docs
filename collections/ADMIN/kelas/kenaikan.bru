@@ -1,0 +1,50 @@
+meta {
+  name: /kenaikan
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{url_admin}}/kelas/kenaikan
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "murid":[
+          {
+              "santri_id": 8555,
+              "th_ajaran_h": "1445-1446",
+              "tingkat_id": "Aly",
+              "kelas": "0",
+              "keterangan": "null"
+          },
+          {
+              "santri_id": 8796,
+              "th_ajaran_h": "1445-1446",
+              "tingkat_id": "Aly",
+              "kelas": "0 (shifir)",
+              "keterangan": null
+          },
+          {
+              "santri_id": 8598,
+              "th_ajaran_h": "1445-1446",
+              "tingkat_id": "Aly",
+              "kelas": "0 (shifir)",
+              "keterangan": null
+          },
+          {
+              "santri_id": 8000,
+              "th_ajaran_h": "1445-1446",
+              "tingkat_id": "Aly",
+              "kelas": "1",
+              "keterangan": "OK"
+          }
+      ]
+  }
+}

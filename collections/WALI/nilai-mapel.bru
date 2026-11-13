@@ -1,0 +1,20 @@
+meta {
+  name: nilai-mapel
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{url_wali}}/nilai-mapel?kelas_id=7432&category=rapor
+  body: none
+  auth: bearer
+}
+
+params:query {
+  kelas_id: 7432
+  category: rapor
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

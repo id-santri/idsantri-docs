@@ -1,0 +1,44 @@
+meta {
+  name: login all
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+body:json {
+  {
+      "login":"all",
+      "password":"112233"
+  }
+}
+
+tests {
+  test('set token', () => {
+      const responseJson = res.getBody();
+      const { data } = responseJson;
+      
+      // Verifikasi bahwa data adalah sebuah object  
+      test('Data should be an object', () => {  
+          expect(data).to.be.an('object');  
+      });  
+  
+       // Dapatkan token dari data  
+      const token = data.token;  
+       // Verifikasi bahwa token ada dan memenuhi kriteria  
+      test('Token should exist, be a string, and have length more than 10', () => {  
+          expect(token).to.be.a('string');  
+          expect(token.length).to.be.above(10);  
+      });  
+  
+     bru.setEnvVar('token_admin', token);
+  });
+}

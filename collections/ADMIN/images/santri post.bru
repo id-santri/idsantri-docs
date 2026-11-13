@@ -1,0 +1,23 @@
+meta {
+  name: santri post
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url_admin}}/images/santri/8000
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipart-form {
+  image: @file(C:\Users\idsantri\OneDrive\Pictures\code.png) @contentType(image/png)
+}

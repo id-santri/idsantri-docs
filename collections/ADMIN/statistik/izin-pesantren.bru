@@ -1,0 +1,19 @@
+meta {
+  name: izin-pesantren
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/statistik/izin-pesantren/1444-1445
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

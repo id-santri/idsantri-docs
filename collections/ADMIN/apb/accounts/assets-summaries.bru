@@ -1,0 +1,19 @@
+meta {
+  name: assets-summaries
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/apb/accounts/assets-summaries
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

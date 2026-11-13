@@ -1,0 +1,15 @@
+meta {
+  name: ~santri~id
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/status/santri/8000
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

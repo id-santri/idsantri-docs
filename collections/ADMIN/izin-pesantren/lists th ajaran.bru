@@ -1,0 +1,19 @@
+meta {
+  name: lists th ajaran
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/izin-pesantren/lists/th-ajaran-h
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

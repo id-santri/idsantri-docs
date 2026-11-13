@@ -1,0 +1,23 @@
+meta {
+  name: profiles-upload-[image]
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url_admin}}/config/profiles/upload/tt-pengasuh
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipart-form {
+  image: @file(C:\Users\idsantri\Documents\sertifkat tugas.png)
+}

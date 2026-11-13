@@ -1,0 +1,25 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/mutaallim/21
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "santri_id":8000,
+    "th_ajaran_h":"1446-1447",
+    "marhalah":"Sufla",
+    "faslah":"Jilid-1",
+    "aktif":0
+  }
+}

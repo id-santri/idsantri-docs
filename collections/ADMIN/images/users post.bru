@@ -1,0 +1,23 @@
+meta {
+  name: users post
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{url_admin}}/images/users/2
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipart-form {
+  : @file(C:\Users\idsantri\Pictures\Screenshots\Cuplikan layar 2025-05-10 191916.png) @contentType(image/png)
+}

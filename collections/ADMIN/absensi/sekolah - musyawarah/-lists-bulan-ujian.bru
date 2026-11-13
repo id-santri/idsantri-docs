@@ -1,0 +1,24 @@
+meta {
+  name: -lists-bulan-ujian
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{url_admin}}/absensi/sekolah/lists/bulan-ujian?th_ajaran_h=1444-1445
+  body: json
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1444-1445
+  ~tingkat_id: aly
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

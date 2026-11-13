@@ -1,0 +1,29 @@
+meta {
+  name: santri-permohonan-berhenti
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{url_admin}}/reports/santri/permohonan-berhenti/download?id=5616&wali_nama=asdf&wali_no_telepon=6285765675657&wali_bukti_diri=KTP&wali_bukti_diri_id=2345w&wali_status=wali&wali_hubungan=ayaj
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 5616
+  wali_nama: asdf
+  wali_no_telepon: 6285765675657
+  wali_bukti_diri: KTP
+  wali_bukti_diri_id: 2345w
+  wali_status: wali
+  wali_hubungan: ayaj
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

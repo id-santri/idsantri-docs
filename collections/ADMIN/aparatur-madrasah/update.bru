@@ -1,0 +1,29 @@
+meta {
+  name: update
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{url_admin}}/aparatur-madrasah/10
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "aparatur_id": 4,
+      "tingkat_id":"id",
+      "th_ajaran_h":"1444-1445",
+      "jabatan":"Kepala Madrasah",
+      "kelas":"ab"
+  }
+}

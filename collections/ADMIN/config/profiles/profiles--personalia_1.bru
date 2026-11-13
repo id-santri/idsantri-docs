@@ -1,0 +1,27 @@
+meta {
+  name: profiles--personalia_1
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url_admin}}/config/profiles/personalia
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "pengasuh": "KH Fakhrudin",
+      "ketua": "Ra. Nasih Aschal",
+      "sekretaris": "Zainal M"
+  }
+}

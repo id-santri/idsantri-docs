@@ -1,0 +1,23 @@
+meta {
+  name: iuran-cover
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{url_admin}}/reports/iuran-cover/download?id=7690
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 7690
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

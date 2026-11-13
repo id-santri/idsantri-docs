@@ -1,0 +1,15 @@
+meta {
+  name: lists-pendidikan-akhir-formal
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{url_admin}}/lists/pendidikan-akhir-formal
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,19 @@
+meta {
+  name: santri del
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{url_admin}}/images/santri/8000
+  body: multipartForm
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

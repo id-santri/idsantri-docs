@@ -1,0 +1,34 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/indisipliner
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "santri_id":"8001",
+    "kategori":"tes",
+    "tgl_kasus":"2023-12-01",
+    "tgl_sidang":"2023-12-01",
+    "pasal_array":[
+      {"nomor":"11a", "text":"abc"},
+      {"nomor":"12b", "text":"abc"}
+    ],
+    "eksekutor":"tes",
+    "kategori":3
+  }
+}

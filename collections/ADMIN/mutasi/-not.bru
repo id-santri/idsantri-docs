@@ -1,0 +1,21 @@
+meta {
+  name: -not
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/mutasi/not?tingkat_id=aly&kelas=5-l
+  body: multipartForm
+  auth: bearer
+}
+
+params:query {
+  tingkat_id: aly
+  kelas: 5-l
+  ~domisili: D-08
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

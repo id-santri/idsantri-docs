@@ -1,0 +1,15 @@
+meta {
+  name: ~lists
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/status/lists
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

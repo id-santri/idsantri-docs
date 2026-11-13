@@ -1,0 +1,23 @@
+meta {
+  name: lists-th-ajaran-h
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/apb/transactions/lists/th-ajaran-h
+  body: json
+  auth: bearer
+}
+
+params:query {
+  ~account_id: 1.05.1
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,23 @@
+meta {
+  name: santri-keterangan-berhenti
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/reports/santri/keterangan-berhenti/download?id=8000
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 8000
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

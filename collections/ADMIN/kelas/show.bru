@@ -1,0 +1,15 @@
+meta {
+  name: show
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/kelas/323
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

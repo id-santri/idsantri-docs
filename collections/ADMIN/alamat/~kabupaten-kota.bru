@@ -1,0 +1,19 @@
+meta {
+  name: ~kabupaten-kota
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/alamat/kabupaten-kota?q=sam
+  body: none
+  auth: bearer
+}
+
+params:query {
+  q: sam
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,19 @@
+meta {
+  name: delete
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{url_admin}}/santri/8000
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

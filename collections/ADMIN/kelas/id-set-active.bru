@@ -1,0 +1,21 @@
+meta {
+  name: /:id/set-active
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{url_admin}}/kelas/8303/set-active
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "aktif":true
+  }
+}

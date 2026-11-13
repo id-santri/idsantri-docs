@@ -1,0 +1,22 @@
+meta {
+  name: ~ ids
+  type: graphql
+  seq: 4
+}
+
+get {
+  url: {{url_admin}}/santri/ids?active_only=true&q=80
+  body: graphql
+  auth: bearer
+}
+
+params:query {
+  active_only: true
+  q: 80
+  ~active_only: false
+  ~active_only: null
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

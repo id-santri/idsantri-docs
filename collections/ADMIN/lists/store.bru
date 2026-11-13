@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url_admin}}/lists
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "key":"tingkat-pendidikan",
+      "val0":"OKe",
+      "val1":"123",
+      "val2":1233
+  }
+}

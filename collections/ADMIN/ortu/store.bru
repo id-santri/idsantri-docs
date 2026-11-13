@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url_admin}}/ortu
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "ayah":"huze a",
+      "ibu":"iddate",
+      "a_nik":"3172032005840011",
+      "i_nik":"3172034212900009"
+  }
+}

@@ -1,0 +1,44 @@
+meta {
+  name: profiles_1
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/config/profiles
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "pesantren": [
+          "Pondok Pesantren",
+          "Syaichona Moh Cholil",
+          "PPSMCH"
+      ],
+      "madrasah": [
+          "Madrasah",
+          "Diniyah Salafiyah al-Maarif",
+          "MDS"
+      ],
+      "alamat": [
+          "Jl. KH. Moh. Kholil I/6, Demangan Barat, Kab. Bangkalan, Jawa Timur 69115",
+          "Email: pp.syaichona@gmail.com WA: 087870145778",
+          "Bangkalan"
+      ],
+      "personalia": {
+          "pengasuh": "KH Fakhrud",
+          "ketua": "Ra Nasih",
+          "sekretaris": "Zainal"
+      }
+  }
+}

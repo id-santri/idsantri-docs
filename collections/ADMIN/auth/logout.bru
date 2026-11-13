@@ -1,0 +1,28 @@
+meta {
+  name: logout
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{url_admin}}/auth/logout
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+tests {
+  test('remove token', () => {
+      const responseJson = res.getBody();
+      const { error } = responseJson;
+      expect(error).to.equals(false);
+      bru.setEnvVar('token', '');
+  });
+}

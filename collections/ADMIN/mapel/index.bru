@@ -1,0 +1,20 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/mapel?tingkat_id=ibt
+  body: none
+  auth: bearer
+}
+
+params:query {
+  tingkat_id: ibt
+  ~show: 1
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

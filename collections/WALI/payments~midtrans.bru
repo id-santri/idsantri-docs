@@ -1,0 +1,26 @@
+meta {
+  name: payments~midtrans
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{url_wali}}/payments/midtrans
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}
+
+body:json {
+  {
+    "iuran_ids": [1,2],
+    "customer_details": {
+      "first_name": "Budi",
+      "email": "budisusanto@example.com",
+      "phone": "+628123456789"
+    }
+  }
+}

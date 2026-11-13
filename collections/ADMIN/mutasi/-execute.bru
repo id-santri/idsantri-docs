@@ -1,0 +1,15 @@
+meta {
+  name: -execute
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{url_admin}}/mutasi/execute
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

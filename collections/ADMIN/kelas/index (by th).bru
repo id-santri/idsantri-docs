@@ -1,0 +1,23 @@
+meta {
+  name: index (by th)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/kelas?tingkat_id=Ibt&th_ajaran_h=1441-1442
+  body: none
+  auth: bearer
+}
+
+params:query {
+  tingkat_id: Ibt
+  th_ajaran_h: 1441-1442
+  ~kelas: 1-B
+  ~status: berhenti
+  ~aktif: 0
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

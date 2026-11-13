@@ -1,0 +1,30 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/izin-pesantren
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+  //   "santri_id":"8000",
+  //  "sifat":"tes izin",
+    "dari_tgl":"2023-12-01",
+    "durasi":"1",
+    "keperluan":"tes",
+    "pengajuan":"baru"
+  }
+}

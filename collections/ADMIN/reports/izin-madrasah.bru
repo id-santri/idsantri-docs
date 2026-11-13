@@ -1,0 +1,24 @@
+meta {
+  name: izin-madrasah
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/reports/izin-madrasah/download?id=99
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 99
+  ~token: 488|FP70hZT1ExwsZX0oR0D5u9TcBa7L8YjMwUYUGoKqd3691f5b
+}
+
+headers {
+  ~Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

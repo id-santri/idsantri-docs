@@ -1,0 +1,22 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/indisipliner?santri_id=7690&start_date=2023-01-10&end_date=2023-05-27
+  body: none
+  auth: bearer
+}
+
+params:query {
+  santri_id: 7690
+  start_date: 2023-01-10
+  end_date: 2023-05-27
+  ~th_ajaran_h: 1443-1444
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

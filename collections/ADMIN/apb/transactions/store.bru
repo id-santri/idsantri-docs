@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/apb/transactions
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "keterangan":"test",
+      "nama":"oets",
+      "jabatan":"OK",
+      "catatan":"test catatan"
+  }
+}

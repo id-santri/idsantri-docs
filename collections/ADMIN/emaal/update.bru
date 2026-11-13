@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/emaal/12
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "santri_id":"8001",
+    "no_emaal":"9911334455660011",
+    "aktif":true, 
+    "keterangan":"a"
+  }
+}

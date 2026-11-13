@@ -1,0 +1,30 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/izin-madrasah/1
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+   {
+      "kelas_id": "8111",
+      "tgl_m": "2023-12-01",
+      "tgl_h": "12341212",
+      "durasi": "2",
+      "keperluan": "tes",
+      "id": 1
+  }
+}

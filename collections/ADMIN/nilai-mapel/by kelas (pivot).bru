@@ -1,0 +1,19 @@
+meta {
+  name: by kelas (pivot)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/nilai-mapel/kelas/8111?category=ujian
+  body: none
+  auth: bearer
+}
+
+params:query {
+  category: ujian
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

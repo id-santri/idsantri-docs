@@ -1,0 +1,22 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/nilai-ahwal?th_ajaran_h=1444-1445&tingkat_id=aly&kelas=1-a&ujian_ke=2
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1444-1445
+  tingkat_id: aly
+  kelas: 1-a
+  ujian_ke: 2
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

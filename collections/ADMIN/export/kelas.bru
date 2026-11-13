@@ -1,0 +1,20 @@
+meta {
+  name: kelas
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/export/kelas?th_ajaran_h=1440-1441&tingkat_id=ibt
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1440-1441
+  tingkat_id: ibt
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

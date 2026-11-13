@@ -1,0 +1,23 @@
+meta {
+  name: nilai-mapel
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/export/nilai-mapel?th_ajaran_h=1441-1442&tingkat_id=id&kelas=3-a&category=ujian&ujian_ke=4
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1441-1442
+  tingkat_id: id
+  kelas: 3-a
+  category: ujian
+  ujian_ke: 4
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

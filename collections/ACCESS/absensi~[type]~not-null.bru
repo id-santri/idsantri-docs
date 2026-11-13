@@ -1,0 +1,25 @@
+meta {
+  name: absensi~[type]~not-null
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url_access}}/absensi/sekolah/not-null?th_ajaran_h=1444-1445&bulan_ujian=12-1
+  body: json
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1444-1445
+  bulan_ujian: 12-1
+  ~tingkat_id: ibt
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_access}}
+}

@@ -1,0 +1,20 @@
+meta {
+  name: absensi
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{url_wali}}/absensi?category=Sekolah&kelas_id=7432
+  body: none
+  auth: bearer
+}
+
+params:query {
+  category: Sekolah
+  kelas_id: 7432
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

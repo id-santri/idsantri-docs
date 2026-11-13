@@ -1,0 +1,19 @@
+meta {
+  name: reports--keterangan-berhenti
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/config/reports/keterangan-berhenti
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

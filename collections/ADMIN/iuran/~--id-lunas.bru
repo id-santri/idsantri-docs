@@ -1,0 +1,25 @@
+meta {
+  name: ~/:id/lunas
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{url_admin}}/iuran/3/lunas
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "via":"ATM"
+  }
+}

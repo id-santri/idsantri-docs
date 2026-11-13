@@ -1,0 +1,15 @@
+meta {
+  name: ~/:id/unlock
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{url_admin}}/pulangan/config/10/unlock
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

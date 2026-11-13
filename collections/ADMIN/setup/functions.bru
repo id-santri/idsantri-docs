@@ -1,0 +1,19 @@
+meta {
+  name: functions
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/setup/functions
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

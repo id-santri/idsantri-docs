@@ -1,0 +1,19 @@
+meta {
+  name: procedures
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url_admin}}/setup/procedures
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

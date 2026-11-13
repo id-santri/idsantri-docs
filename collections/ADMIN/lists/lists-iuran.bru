@@ -1,0 +1,15 @@
+meta {
+  name: lists-iuran
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/lists/iuran
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

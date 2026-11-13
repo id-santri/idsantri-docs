@@ -1,0 +1,19 @@
+meta {
+  name: show desa
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url_admin}}/alamat/desa?kecamatan_id=352602
+  body: none
+  auth: bearer
+}
+
+params:query {
+  kecamatan_id: 352602
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

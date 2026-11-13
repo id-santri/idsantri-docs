@@ -1,0 +1,21 @@
+meta {
+  name: create
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/pulangan/santri
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+  
+  }
+}

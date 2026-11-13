@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/nilai-ahwal
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "kelas_id": 8096,
+      "hal": "disiplin",
+      "ujian_ke": 1,
+      "skor": 5
+  }
+}

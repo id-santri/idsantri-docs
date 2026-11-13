@@ -1,0 +1,21 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/aparatur-quran?marhalah=ula
+  body: none
+  auth: bearer
+}
+
+params:query {
+  marhalah: ula
+  ~th_ajaran_h: 1445-1446
+  ~aparatur_id: 92
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,27 @@
+meta {
+  name: store
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{url_admin}}/absensi/settings
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "bulan":"10",
+      "ujian":"3",
+      "tingkat_id":"Id"
+  }
+}

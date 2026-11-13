@@ -1,0 +1,29 @@
+meta {
+  name: ~ search (dt)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{url_admin}}/santri/search
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  ~Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "length":3,
+      "search[value]":"fauzi",
+      "draw":3,
+      "start":0
+  }
+}

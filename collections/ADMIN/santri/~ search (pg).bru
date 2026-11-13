@@ -1,0 +1,25 @@
+meta {
+  name: ~ search (pg)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{url_admin}}/santri/search?search=fauzi&limit=20
+  body: json
+  auth: bearer
+}
+
+params:query {
+  search: fauzi
+  limit: 20
+}
+
+headers {
+  Accept: application/json
+  ~Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

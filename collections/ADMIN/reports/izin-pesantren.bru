@@ -1,0 +1,23 @@
+meta {
+  name: izin-pesantren
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{url_admin}}/reports/izin-pesantren/html?id=2000
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 2000
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

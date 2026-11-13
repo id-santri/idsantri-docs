@@ -1,0 +1,23 @@
+meta {
+  name: users get
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{url_admin}}/images/users/244
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:multipart-form {
+  image: @file()
+}

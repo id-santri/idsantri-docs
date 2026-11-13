@@ -1,0 +1,19 @@
+meta {
+  name: ~ id-wali
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/santri/8000/wali
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

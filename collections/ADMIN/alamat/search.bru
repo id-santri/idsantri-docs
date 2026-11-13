@@ -1,0 +1,21 @@
+meta {
+  name: search
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/alamat?provinsi=jawa barat&kabupaten=Kab. bangkalan&kecamatan=burneh
+  body: none
+  auth: bearer
+}
+
+params:query {
+  provinsi: jawa barat
+  kabupaten: Kab. bangkalan
+  kecamatan: burneh
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: lists-hubungan-wali
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{url_admin}}/lists/hubungan-wali
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

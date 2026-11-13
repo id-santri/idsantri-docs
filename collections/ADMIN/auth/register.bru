@@ -1,0 +1,28 @@
+meta {
+  name: register
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{url_admin}}/auth/register
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "name":"OKea",
+      "username":"okea",
+      "email":"oka@gmail.com",
+      "password":"112233"
+  }
+}

@@ -1,0 +1,47 @@
+meta {
+  name: iuran~lunas
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_access}}/iuran/lunas?start_date=2024-01-01&end_date=2024-12-01
+  body: json
+  auth: bearer
+}
+
+params:query {
+  start_date: 2024-01-01
+  end_date: 2024-12-01
+  ~th_ajaran_h: 1444-1445
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_access}}
+}
+
+tests {
+  test('set token', () => {
+      const responseJson = res.getBody();
+      const { data } = responseJson;
+      
+      // Verifikasi bahwa data adalah sebuah object  
+      test('Data should be an object', () => {  
+          expect(data).to.be.an('object');  
+      });  
+  
+       // Dapatkan token dari data  
+      const token = data.token;  
+       // Verifikasi bahwa token ada dan memenuhi kriteria  
+      test('Token should exist, be a string, and have length more than 10', () => {  
+          expect(token).to.be.a('string');  
+          expect(token.length).to.be.above(10);  
+      });  
+  
+     bru.setEnvVar('token_access', token);
+  });
+}

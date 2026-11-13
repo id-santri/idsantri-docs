@@ -1,0 +1,15 @@
+meta {
+  name: by santri
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/emaal/santri/8000
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

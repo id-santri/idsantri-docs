@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/iuran
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "santri_id":"8000",
+      "th_ajaran_h":"1234-1223",
+      "item":"imana a 4",
+      "nominal":"11000"
+  }
+}

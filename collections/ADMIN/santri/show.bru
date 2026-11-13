@@ -1,0 +1,19 @@
+meta {
+  name: show
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/santri/8000
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

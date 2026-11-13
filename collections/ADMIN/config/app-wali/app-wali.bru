@@ -1,0 +1,19 @@
+meta {
+  name: app-wali
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/config/app-wali
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url_admin}}/wali/5485
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "nama":"walid ul a",
+      "sex":"P",
+      "nik": "1234567890123411",
+      "provinsi":"Jawa Timur"
+  }
+}

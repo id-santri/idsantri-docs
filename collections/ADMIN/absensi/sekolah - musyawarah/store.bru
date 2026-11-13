@@ -1,0 +1,168 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/absensi/sekolah
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "absensi": [
+        {
+          "santri_id": 8907,
+          "no_absen": 1,
+          "kelas_id": 8201,
+          "nama": "A. Sufyan Al-Haris",
+          "kelas": "1-C",
+          "bulan_ujian": "12-1",
+          "p1s": 0,
+          "p1i": 1,
+          "p1a": 2,
+          "p1t": "",
+          "p2s": "0",
+          "p2i": 5,
+          "p2a": null,
+          "p2t": null,
+          "p3s": null,
+          "p3i": null,
+          "p3a": null,
+          "p3t": null,
+          "p4s": null,
+          "p4i": null,
+          "p4a": null,
+          "p4t": null,
+          "p5s": null,
+          "p5i": null,
+          "p5a": null,
+          "p5t": null
+        },
+        {
+          "santri_id": 8856,
+          "no_absen": 2,
+          "kelas_id": 8129,
+          "nama": "Zainal Arifin",
+          "kelas": "1-C",
+          "bulan_ujian": "12-1",
+          "p1s": "null",
+          "p1i": "",
+          "p1a": "0",
+          "p1t": 0,
+          "p2s": 1,
+          "p2i": "10",
+          "p2a": null,
+          "p2t": null,
+          "p3s": null,
+          "p3i": null,
+          "p3a": null,
+          "p3t": null,
+          "p4s": null,
+          "p4i": null,
+          "p4a": null,
+          "p4t": null,
+          "p5s": null,
+          "p5i": null,
+          "p5a": null,
+          "p5t": null
+        },
+        {
+          "santri_id": 8873,
+          "no_absen": 3,
+          "kelas_id": 8149,
+          "nama": "Zainul Hamdih",
+          "kelas": "1-C",
+          "bulan_ujian": "12-1",
+          "p1s": null,
+          "p1i": null,
+          "p1a": null,
+          "p1t": null,
+          "p2s": null,
+          "p2i": null,
+          "p2a": null,
+          "p2t": null,
+          "p3s": null,
+          "p3i": null,
+          "p3a": null,
+          "p3t": null,
+          "p4s": null,
+          "p4i": null,
+          "p4a": null,
+          "p4t": null,
+          "p5s": null,
+          "p5i": null,
+          "p5a": null,
+          "p5t": null
+        },
+        {
+          "santri_id": 8880,
+          "no_absen": 4,
+          "kelas_id": 8157,
+          "nama": "Zainur Rohman",
+          "kelas": "1-C",
+          "bulan_ujian": "12-1",
+          "p1s": null,
+          "p1i": null,
+          "p1a": null,
+          "p1t": null,
+          "p2s": null,
+          "p2i": null,
+          "p2a": null,
+          "p2t": null,
+          "p3s": null,
+          "p3i": null,
+          "p3a": null,
+          "p3t": null,
+          "p4s": null,
+          "p4i": null,
+          "p4a": null,
+          "p4t": null,
+          "p5s": null,
+          "p5i": null,
+          "p5a": null,
+          "p5t": null
+        },
+        {
+          "santri_id": 8896,
+          "no_absen": 5,
+          "kelas_id": 8180,
+          "nama": "Zidni Ilman",
+          "kelas": "1-C",
+          "bulan_ujian": "12-1",
+          "p1s": null,
+          "p1i": null,
+          "p1a": null,
+          "p1t": null,
+          "p2s": null,
+          "p2i": null,
+          "p2a": null,
+          "p2t": null,
+          "p3s": null,
+          "p3i": null,
+          "p3a": null,
+          "p3t": null,
+          "p4s": null,
+          "p4i": null,
+          "p4a": null,
+          "p4t": null,
+          "p5s": null,
+          "p5i": null,
+          "p5a": null,
+          "p5t": null
+        }
+      ]
+  }
+  
+  
+}

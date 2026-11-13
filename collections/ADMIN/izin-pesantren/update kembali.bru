@@ -1,0 +1,25 @@
+meta {
+  name: update kembali
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url_admin}}/izin-pesantren/11/set-kembali
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "kembali_tgl": "2020-07-18"
+  }
+}

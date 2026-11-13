@@ -1,0 +1,15 @@
+meta {
+  name: lists-tingkat-pendidikan
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{url_admin}}/lists/tingkat-pendidikan
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

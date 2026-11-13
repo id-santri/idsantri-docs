@@ -1,0 +1,22 @@
+meta {
+  name: /:id/roles
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/users/1/roles
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "role":"admin",
+      "value":false
+  }
+}

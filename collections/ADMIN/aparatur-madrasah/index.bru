@@ -1,0 +1,21 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/aparatur-madrasah?aparatur_id=81
+  body: none
+  auth: bearer
+}
+
+params:query {
+  aparatur_id: 81
+  ~th_ajaran_h: 1444-1445
+  ~tingkat_id: Ts
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

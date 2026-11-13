@@ -1,0 +1,19 @@
+meta {
+  name: delete
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{url_admin}}/aparatur-quran/2
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

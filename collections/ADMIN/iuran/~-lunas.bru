@@ -1,0 +1,21 @@
+meta {
+  name: ~/lunas
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{url_admin}}/iuran/lunas?th_ajaran_h=1443-1444
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1443-1444
+  ~start_date: 2022-03-13
+  ~end_date: 2023-03-13
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/apb/accounts
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "id":"tesst",
+      "normal":"D",
+      "name":"OK",
+      "group":"test catatan"
+  }
+}

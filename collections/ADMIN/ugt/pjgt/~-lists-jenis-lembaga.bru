@@ -1,0 +1,15 @@
+meta {
+  name: ~/lists/jenis-lembaga
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/ugt/pjgt/lists/jenis-lembaga
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

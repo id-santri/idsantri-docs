@@ -1,0 +1,15 @@
+meta {
+  name: kelas
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_wali}}/kelas
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

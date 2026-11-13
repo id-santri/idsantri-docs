@@ -1,0 +1,15 @@
+meta {
+  name: ~/:id/back (set)
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{url_admin}}/pulangan/santri/11497/back
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

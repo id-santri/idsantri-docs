@@ -1,0 +1,20 @@
+meta {
+  name: email verify
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{url_admin}}/auth/email-verify/19/fbab1ac35fb6475286e08d6e9047f32839e184b0?expires=1784196387&signature=ea103aad236f683c59c8abfa579834c52d2390063d8e85776f4db92ccdf79a66
+  body: none
+  auth: none
+}
+
+params:query {
+  expires: 1784196387
+  signature: ea103aad236f683c59c8abfa579834c52d2390063d8e85776f4db92ccdf79a66
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: tatib-santri
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{url_wali}}/tatib-santri
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

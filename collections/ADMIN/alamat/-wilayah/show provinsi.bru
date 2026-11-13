@@ -1,0 +1,15 @@
+meta {
+  name: show provinsi
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/alamat/provinsi
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

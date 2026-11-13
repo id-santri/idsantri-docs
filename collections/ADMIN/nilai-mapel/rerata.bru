@@ -1,0 +1,22 @@
+meta {
+  name: rerata
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url_admin}}/nilai-mapel/rerata?th_ajaran_h=1441-1442&tingkat_id=ts&kelas=5-a&category=harian
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1441-1442
+  tingkat_id: ts
+  kelas: 5-a
+  category: harian
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

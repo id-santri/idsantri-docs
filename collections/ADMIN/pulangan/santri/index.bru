@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/pulangan/santri?identity=1445-1446~ramadan-ana
+  body: none
+  auth: bearer
+}
+
+params:query {
+  identity: 1445-1446~ramadan-ana
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

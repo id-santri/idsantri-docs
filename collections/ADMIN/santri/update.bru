@@ -1,0 +1,32 @@
+meta {
+  name: update
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{url_admin}}/santri/8020
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "nama":"Muhammad Faisal",
+      "nik": "3578120901080011",
+      "tgl_daftar_m": "2020-07-01",
+      "tgl_daftar_h": "14411111",
+      "sex": "L",
+      "ortu_id": 4360,
+      "wali_id": 3039,
+      "wali_status": "Ayah"
+  }
+}

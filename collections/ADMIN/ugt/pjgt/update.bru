@@ -1,0 +1,32 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/ugt/pjgt/70
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "nama":"Usman Husnan",
+      "wilayah":"tewa",
+      "jenis_lembaga":"defa g",
+      "nama_lembaga":"def",
+      "sex":"P",
+      "kode_pos":"12345",
+      "telepon":"0858556554421",
+      "email":"aaa@a.xdx"
+  }
+}

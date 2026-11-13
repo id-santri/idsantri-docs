@@ -1,0 +1,21 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/iuran?santri_id=8000&th_ajaran_h=1443-1444
+  body: none
+  auth: bearer
+}
+
+params:query {
+  santri_id: 8000
+  th_ajaran_h: 1443-1444
+  ~in_group: all@gmail.com~2026-11-02 08:08:39
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

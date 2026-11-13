@@ -1,0 +1,25 @@
+meta {
+  name: email resend
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{url_admin}}/auth/email-resend
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "email":"ok@gmail.com"
+  }
+}

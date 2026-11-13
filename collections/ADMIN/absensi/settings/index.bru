@@ -1,0 +1,23 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/absensi/settings?tingkat_id=Ts
+  body: json
+  auth: bearer
+}
+
+params:query {
+  tingkat_id: Ts
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

@@ -1,0 +1,28 @@
+meta {
+  name: store
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{url_admin}}/wali
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "nama":"tes wali lagsi",
+      "sex":"L",
+      "id":"234523",
+      "nik":"1234567890123455"
+  }
+}

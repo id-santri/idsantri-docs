@@ -1,0 +1,38 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url_admin}}/nilai-mapel
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "ujian_ke":4,
+    "kategori":"ujian",
+    "data":[
+          {
+              "kelas_id": 2091,
+              "mapel_id": "id-qur",
+              "nilai": ""
+          },
+          {
+              "kelas_id": 2091,
+              "mapel_id": "id-fkh",
+              "nilai": "20"
+          }
+      ]
+  }
+}

@@ -1,0 +1,23 @@
+meta {
+  name: ugt-kuitansi
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{url_admin}}/reports/ugt/kuitansi/download?id=92
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 92
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

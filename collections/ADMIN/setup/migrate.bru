@@ -1,0 +1,23 @@
+meta {
+  name: migrate
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/setup/migrate?token=2026-08-01
+  body: none
+  auth: bearer
+}
+
+params:query {
+  token: 2026-08-01
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

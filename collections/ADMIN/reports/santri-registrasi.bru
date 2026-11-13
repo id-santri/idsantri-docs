@@ -1,0 +1,23 @@
+meta {
+  name: santri-registrasi
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url_admin}}/reports/santri/registrasi/html?id=8000
+  body: none
+  auth: bearer
+}
+
+params:query {
+  id: 8000
+}
+
+headers {
+  Content-Type: application/pdf
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

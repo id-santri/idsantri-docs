@@ -1,0 +1,19 @@
+meta {
+  name: ~/lists/th-ajaran-h
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{url_admin}}/ugt/gt/lists/th-ajaran-h
+  body: none
+  auth: bearer
+}
+
+params:query {
+  ~wilayah: geger
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

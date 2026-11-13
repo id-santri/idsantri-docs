@@ -1,0 +1,32 @@
+meta {
+  name: /no-absen
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{url_admin}}/kelas/no-absen
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  [
+      {
+      "id": 570,
+      "no_absen": 79
+      },
+      {
+      "id": 518,
+      "no_absen": 89
+      }
+  ]
+}

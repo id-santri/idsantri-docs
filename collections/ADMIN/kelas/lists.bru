@@ -1,0 +1,21 @@
+meta {
+  name: /lists
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{url_admin}}/kelas/lists?th_ajaran_h=1440-1441&tingkat_id=ibt&kelas=1-A
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1440-1441
+  tingkat_id: ibt
+  kelas: 1-A
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}

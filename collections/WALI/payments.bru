@@ -1,0 +1,15 @@
+meta {
+  name: payments
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{url_wali}}/payments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token_wali}}
+}

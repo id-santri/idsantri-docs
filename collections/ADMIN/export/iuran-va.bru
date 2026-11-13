@@ -1,0 +1,25 @@
+meta {
+  name: iuran-va
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{url_admin}}/export/iuran-va
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+    "va_group":["aa","ad","asd"]
+  }
+}

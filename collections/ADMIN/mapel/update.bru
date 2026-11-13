@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/mapel/999
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "id":999,
+      "tingkat_id":"ibt",
+      "mapel":"tes mapel",
+      "show":1
+  }
+}
