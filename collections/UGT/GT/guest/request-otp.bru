@@ -1,11 +1,11 @@
 meta {
   name: request-otp
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
-  url: {{url_gt}}/request
+  url: {{url_ugt_gt}}/request-otp
   body: json
   auth: none
 }
@@ -16,8 +16,7 @@ headers {
 
 body:json {
   {
-      "santri_id":"8000",
-      "tgl_lahir":"03052000"
+      "email":"x@x.x"
   }
 }
 
