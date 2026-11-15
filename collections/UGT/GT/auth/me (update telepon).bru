@@ -1,13 +1,13 @@
 meta {
-  name: register
+  name: me (update telepon)
   type: http
-  seq: 3
+  seq: 2
 }
 
-post {
-  url: {{url_wali}}/login
+put {
+  url: {{url_ugt_gt}}/me
   body: json
-  auth: none
+  auth: inherit
 }
 
 headers {
@@ -16,8 +16,7 @@ headers {
 
 body:json {
   {
-      "santri_id":"8000",
-      "tgl_lahir":"03052000"
+      "telepon":"555544442222"
   }
 }
 

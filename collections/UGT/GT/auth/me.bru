@@ -1,13 +1,13 @@
 meta {
-  name: request-otp
+  name: me
   type: http
   seq: 1
 }
 
-post {
-  url: {{url_wali}}/login
+put {
+  url: {{url_ugt_gt}}/me
   body: json
-  auth: none
+  auth: inherit
 }
 
 headers {
