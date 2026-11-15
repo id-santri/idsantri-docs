@@ -1,0 +1,28 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{url_admin}}/ugt/config-laporan/1447-1448-01
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
+
+body:json {
+  {
+      "th_ajaran_h":"1447-1448",
+      "bulan":"2",
+      "start":"2006-09-10",
+      "end":"2006-10-11"
+  }
+}

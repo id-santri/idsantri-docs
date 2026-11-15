@@ -1,0 +1,19 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/ugt/config-laporan?th_ajaran_h=1447-1448
+  body: none
+  auth: bearer
+}
+
+params:query {
+  th_ajaran_h: 1447-1448
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
