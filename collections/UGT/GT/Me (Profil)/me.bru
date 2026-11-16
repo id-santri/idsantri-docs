@@ -4,7 +4,7 @@ meta {
   seq: 1
 }
 
-put {
+get {
   url: {{url_ugt_gt}}/me
   body: json
   auth: inherit
@@ -12,13 +12,6 @@ put {
 
 headers {
   Accept: application/json
-}
-
-body:json {
-  {
-      "santri_id":"8000",
-      "tgl_lahir":"03052000"
-  }
 }
 
 tests {
