@@ -61,24 +61,8 @@ body:json {
   }
 }
 
-tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
+docs {
+  # buat laporan baru
   
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_wali', token);
-  });
+  aksi ditolak jika laporan bukan milik gt yang bersangkutan
 }

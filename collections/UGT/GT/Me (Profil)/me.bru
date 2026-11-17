@@ -14,24 +14,65 @@ headers {
   Accept: application/json
 }
 
-tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
-  
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_wali', token);
-  });
+docs {
+  # Menampilkan Profil GT
+
+  Mengambil profil GT yang sedang login. Identitas GT dibaca dari klaim `gt_id` pada bearer token, jadi request ini tidak menerima ID GT melalui URL, query parameter, atau body.
+
+  ## Cara menggunakan
+
+  1. Pilih environment yang sesuai, misalnya `idsantri-local`. Pastikan `url_base` mengarah ke server API dan `url_ugt_gt` mengarah ke prefix `/ugt/gt`.
+  2. Pastikan environment memiliki `token_ugt_gt` yang masih valid. Pada koleksi ini autentikasi diwarisi dari folder `Me (Profil)`.
+  3. Jika belum memiliki token atau token sudah kedaluwarsa, jalankan alur login GT: `register` bila GT belum terdaftar, lalu `request-otp` dan `verify-otp`. Request `verify-otp` menyimpan `data.token` ke `token_ugt_gt` pada environment aktif.
+  4. Kirim request GET ini. Tidak perlu mengirim body atau query parameter.
+
+  ## Request
+
+  - Method: `GET`
+  - URL: `{{url_ugt_gt}}/me`
+  - Auth: Bearer token dari `token_ugt_gt`
+  - Header: `Accept: application/json`
+  - Body: tidak ada
+
+  ## Respons berhasil
+
+  Status: `200 OK`
+
+  `data.gt` berisi profil gabungan GT, data santri, PJGT, dan tahun ajaran. Bentuk contoh:
+
+  ```json
+  {
+    "error": false,
+    "message": "Berhasil menampilkan data",
+    "type": "success",
+    "data": {
+      "gt": {
+        "id": 189,
+        "santri_id": 25,
+        "th_ajaran_h": "1447-1448",
+        "th_ajaran_m": "2025-2026",
+        "telepon": "081234567890",
+        "email": "gt@example.com",
+        "nama": "Ahmad Santri",
+        "alamat_pendek": "Sidogiri, Kraton, Pasuruan",
+        "domisili": "Daerah A",
+        "data_akhir": "Aktif",
+        "pjgt_id": 8,
+        "pjgt_nama": "Ustadz Pembina",
+        "pjgt_alamat_pendek": "Desa Maju, Kec. Jaya, Kab. Pasuruan",
+        "pjgt_telepon": "081234567899",
+        "pjgt_wilayah": "Wilayah Timur",
+        "pjgt_jenis_lembaga": "MTs",
+        "pjgt_nama_lembaga": "MTs Al-Hikmah"
+      }
+    }
+  }
+  ```
+
+  Nilai di atas hanya contoh. Data yang dikembalikan mengikuti GT pada token aktif. Profil tidak ditemukan (`404`) bila GT tidak ada atau relasi santri/PJGT yang dibutuhkan view tidak tersedia.
+
+  ## Respons gagal
+
+  - `401 Unauthorized`: token tidak dikirim, tidak valid, atau kedaluwarsa. Periksa environment aktif dan ulangi login OTP bila diperlukan.
+  - `404 Not Found`: profil GT tidak ditemukan.
 }

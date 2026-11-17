@@ -16,28 +16,84 @@ headers {
 
 body:json {
   {
-      "telepon":"555544442222"
+    "telepon": "081234567890"
   }
 }
 
-tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
-  
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_wali', token);
-  });
+docs {
+  # Memperbarui Nomor Telepon GT
+
+  Memperbarui nomor telepon untuk GT yang sedang login. Identitas GT diambil dari klaim `gt_id` pada bearer token; jangan mengirim ID GT di body atau URL.
+
+  ## Cara menggunakan
+
+  1. Pilih environment yang sesuai dan pastikan `url_ugt_gt` mengarah ke server yang ingin diuji.
+  2. Pastikan `token_ugt_gt` berisi token GT yang masih valid. Request ini mewarisi Bearer auth dari folder `Me (Profil)`.
+  3. Isi body JSON dengan nomor telepon baru sebagai string, lalu kirim request.
+  4. Untuk mengambil token, jalankan `request-otp` dan `verify-otp` pada folder `guest`. Request `verify-otp` menyimpan token hasil login ke `token_ugt_gt` pada environment aktif.
+
+  ## Request
+
+  - Method: `PUT`
+  - URL: `{{url_ugt_gt}}/me`
+  - Auth: Bearer token dari `token_ugt_gt`
+  - Header: `Accept: application/json`
+  - Content-Type: `application/json`
+
+  ```json
+  {
+    "telepon": "081234567890"
+  }
+  ```
+
+  ## Aturan nomor telepon
+
+  - `telepon` boleh berupa `null` untuk menghapus nomor telepon.
+  - Jika diisi, nilainya harus berupa string yang berisi 11 sampai 15 digit angka.
+  - Kirim sebagai string agar angka `0` di awal tidak hilang.
+  - Contoh valid: `"08123456789"` (11 digit), `"081234567890"` (12 digit), dan `"081234567890123"` (15 digit).
+  - Contoh tidak valid: `"0812345678"` (10 digit), `"0812345678901234"` (16 digit), atau `"0812-3456-789"` (mengandung simbol).
+  - Body kosong `{}` juga valid dan tidak mengubah nomor yang tersimpan.
+  - Hanya `telepon` yang diproses. Field lain yang ikut dikirim, misalnya `email`, `santri_id`, `th_ajaran_h`, atau `pjgt_id`, diabaikan.
+
+  ## Respons berhasil
+
+  Status: `200 OK`
+
+  Respons berisi profil terbaru pada `data.gt`, termasuk nomor telepon yang baru disimpan:
+
+  ```json
+  {
+    "error": false,
+    "message": "Data berhasil diupdate",
+    "type": "success",
+    "data": {
+      "gt": {
+        "id": 189,
+        "santri_id": 25,
+        "th_ajaran_h": "1447-1448",
+        "th_ajaran_m": "2025-2026",
+        "telepon": "081234567890",
+        "email": "gt@example.com",
+        "nama": "Ahmad Santri",
+        "alamat_pendek": "Sidogiri, Kraton, Pasuruan",
+        "domisili": "Daerah A",
+        "data_akhir": "Aktif",
+        "pjgt_id": 8,
+        "pjgt_nama": "Ustadz Pembina",
+        "pjgt_alamat_pendek": "Desa Maju, Kec. Jaya, Kab. Pasuruan",
+        "pjgt_telepon": "081234567899",
+        "pjgt_wilayah": "Wilayah Timur",
+        "pjgt_jenis_lembaga": "MTs",
+        "pjgt_nama_lembaga": "MTs Al-Hikmah"
+      }
+    }
+  }
+  ```
+
+  ## Respons gagal
+
+  - `401 Unauthorized`: bearer token tidak ada, tidak valid, atau kedaluwarsa.
+  - `404 Not Found`: GT pada token tidak ditemukan.
+  - `422 Unprocessable Entity`: nomor telepon tidak memenuhi aturan digit atau panjang. Nilai di database tidak berubah.
 }

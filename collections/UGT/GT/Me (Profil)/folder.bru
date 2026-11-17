@@ -10,3 +10,24 @@ auth {
 auth:bearer {
   token: {{token_ugt_gt}}
 }
+
+docs {
+  # Profil GT (Guru Tugas)
+  
+  Folder ini berisi request untuk melihat profil GT yang sedang login dan memperbarui nomor teleponnya. Kedua endpoint menentukan GT dari klaim `gt_id` pada bearer token; jangan menambahkan ID GT ke URL, query parameter, atau body.
+  
+  ## Autentikasi
+  
+  Request pada folder ini mewarisi Bearer auth yang menggunakan environment variable `token_ugt_gt`. Pastikan environment yang aktif memiliki token GT yang valid.
+  
+  Untuk mendapatkan token, jalankan alur login GT pada folder `guest`: `request-otp`, lalu `verify-otp`. Request `verify-otp` menyimpan token hasil login ke `token_ugt_gt` pada environment aktif. Jika request mengembalikan `401`, periksa environment/token aktif dan ulangi login bila token sudah kedaluwarsa.
+  
+  ## Request di folder ini
+  
+  | Request | Method | Kegunaan | Body |
+  | --- | --- | --- | --- |
+  | `me` | `GET` | Menampilkan profil GT beserta informasi santri dan PJGT terkait. | Tidak diperlukan |
+  | `me (update telepon)` | `PUT` | Memperbarui nomor telepon GT yang sedang login. | JSON berisi `telepon` |
+  
+  Untuk aturan validasi nomor telepon dan contoh response, lihat dokumentasi pada masing-masing request.
+}
