@@ -6,7 +6,7 @@ meta {
 
 get {
   url: {{url_ugt_gt}}/laporan
-  body: json
+  body: none
   auth: inherit
 }
 
@@ -15,5 +15,77 @@ headers {
 }
 
 docs {
-  # tampilkan semua laporan berdasarkan 
+  # Daftar Laporan Bulanan GT
+
+  Mengambil daftar seluruh jadwal konfigurasi laporan bulanan untuk tahun ajaran GT yang sedang login, lengkap dengan status apakah GT sudah mengisi laporan tersebut atau belum, serta status apakah periode laporan masih dibuka atau sudah terkunci (`locked`).
+
+  ## Cara Menggunakan di Bruno
+
+  1. Pastikan environment aktif dipilih (misalnya `idsantri-local`).
+  2. Pastikan variabel `token_ugt_gt` berisi token JWT GT yang valid.
+  3. Kirim request `GET`. Tidak memerlukan query parameter maupun body.
+  4. Amati array pada `data.laporan`:
+     - Jika item memiliki `id: null`, artinya GT **belum mengisi** laporan untuk bulan/konfigurasi tersebut.
+     - Jika item memiliki `id: 123` (angka), artinya GT **sudah mengisi** laporan. Simpan nilai `id` tersebut jika ingin melihat detail (`show`), mengedit (`update`), atau menghapus (`destroy`).
+     - Jika `locked: true`, periode pengisian laporan sudah ditutup dan tidak dapat dimodifikasi.
+
+  ## Request
+
+  - **Method**: `GET`
+  - **URL**: `{{url_ugt_gt}}/laporan`
+  - **Auth**: Bearer token (`token_ugt_gt`) via inherit
+  - **Headers**:
+    - `Accept: application/json`
+  - **Body**: Tidak ada
+
+  ## Respons Berhasil
+
+  Status: `200 OK`
+
+  ```json
+  {
+    "error": false,
+    "message": "Berhasil menampilkan data",
+    "type": "success",
+    "data": {
+      "laporan": [
+        {
+          "id": 10,
+          "config_id": "1447-1448-01",
+          "th_ajaran_h": "1447-1448",
+          "bulan": 1,
+          "tgl_lapor": "2025-08-15 10:30:00",
+          "locked": true,
+          "gt_id": 189
+        },
+        {
+          "id": null,
+          "config_id": "1447-1448-02",
+          "th_ajaran_h": "1447-1448",
+          "bulan": 2,
+          "tgl_lapor": null,
+          "locked": false,
+          "gt_id": 189
+        }
+      ]
+    }
+  }
+  ```
+
+  ### Penjelasan Field Response
+
+  | Field | Tipe | Keterangan |
+  | --- | --- | --- |
+  | `id` | Integer / Null | ID record laporan yang sudah diisi (`ugt_laporan_gt.id`). Bernilai `null` jika GT belum mengisi. |
+  | `config_id` | String | Kode konfigurasi periode laporan (FK ke `ugt_laporan_config.id`). |
+  | `th_ajaran_h` | String | Tahun ajaran hijriah penugasan GT (contoh: `1447-1448`). |
+  | `bulan` | Integer | Urutan bulan laporan (1 s/d 12). |
+  | `tgl_lapor` | String / Null | Timestamp waktu laporan dibuat. `null` jika belum diisi. |
+  | `locked` | Boolean | `true` jika jadwal laporan sudah ditutup (tidak bisa tambah/edit/hapus), `false` jika masih terbuka. |
+  | `gt_id` | Integer | ID GT yang sedang login. |
+
+  ## Respons Gagal & Penanganannya
+
+  - **`401 Unauthorized`**: Token Bearer tidak ada, tidak valid, atau sudah kedaluwarsa. Lakukan login ulang melalui folder `guest`.
+  - **`404 Not Found`**: GT pada token tidak ditemukan di database atau tidak memiliki tahun ajaran aktif.
 }

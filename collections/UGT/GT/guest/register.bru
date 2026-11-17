@@ -16,34 +16,99 @@ headers {
 
 body:json {
   {
-    "otp":"977882",
-    "email":"x@x.xa",
-    "gt_id":188
+    "gt_id": 188,
+    "otp": "977882",
+    "email": "gt@example.com"
   }
 }
 
 tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
+  test("Status code is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
   
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_wali', token);
+  test("Respons berhasil", function() {
+    const data = res.getBody();
+    expect(data.error).to.be.false;
+    expect(data.type).to.equal("success");
+    expect(data.message).to.include("Email berhasil didaftarkan");
   });
 }
 
 docs {
-  cara pakai ..
+  # Registrasi Email Guru Tugas (GT)
+
+  Mendaftarkan alamat email GT yang baru pertama kali aktif menggunakan OTP bawaan (auto-generated) saat data GT dibuat oleh admin pesantren.
+
+  ## Kapan Endpoint Ini Digunakan?
+
+  Endpoint ini hanya dipanggil satu kali pada masa onboarding awal GT. Jika data GT di database belum memiliki alamat email (`email === null`), GT harus melakukan registrasi ini sebelum dapat meminta OTP login.
+
+  Setelah registrasi berhasil, nilai OTP awal akan dihapus dari record GT (`otp = null`), dan email GT akan tercatat permanen. Untuk proses login selanjutnya, GT cukup menggunakan `request-otp` dan `verify-otp`.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Pilih environment aktif (misalnya `idsantri-local`). Pastikan `url_ugt_gt` mengarah ke prefix `/ugt/gt`.
+  2. Siapkan data pendaftaran yang diperoleh dari panitia/admin:
+     - `gt_id`: ID record GT pada tabel `ugt_gt`.
+     - `otp`: Kode OTP 6 digit yang tercatat pada record GT saat dibuat.
+     - `email`: Alamat email aktif milik GT yang ingin didaftarkan.
+  3. Masukkan data ke dalam Body JSON.
+  4. Kirim request `POST`.
+  5. Jika berhasil (`201 Created`), lanjutkan ke request `request-otp` untuk proses login pertama kali.
+
+  ## Request
+
+  - **Method**: `POST`
+  - **URL**: `{{url_ugt_gt}}/register`
+  - **Auth**: `none`
+  - **Headers**:
+    - `Accept: application/json`
+    - `Content-Type: application/json`
+
+  ### Contoh Body JSON
+
+  ```json
+  {
+    "gt_id": 188,
+    "otp": "977882",
+    "email": "gt@example.com"
+  }
+  ```
+
+  ### Spesifikasi Parameter Body
+
+  | Field | Tipe | Wajib? | Keterangan & Validasi |
+  | --- | --- | --- | --- |
+  | `gt_id` | Integer / String | Ya | ID record GT pada tabel `ugt_gt`. |
+  | `otp` | String | Ya | Kode OTP awal yang dibuat sistem (harus tepat 6 digit angka). |
+  | `email` | String | Ya | Format email valid (contoh: `nama@domain.com`). |
+
+  ## Respons Berhasil
+
+  Status: `201 Created`
+
+  ```json
+  {
+    "error": false,
+    "message": "Email berhasil didaftarkan. Silahkan login dengan email tersebut.",
+    "type": "success",
+    "data": {
+      "email": "gt@example.com",
+      "otp": "977882",
+      "gt_id": 188
+    }
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`404 Not Found`**:
+    - Kode `#1`: `gt_id` tidak ditemukan pada database (`Tidak ditemukan data yang sesuai. Cek kembali data yang Anda masukkan. #1`).
+    - Kode `#2`: Kode `otp` yang dikirim tidak cocok dengan data di database (`Tidak ditemukan data yang sesuai. Cek kembali data yang Anda masukkan. #2`).
+    - Tahun Ajaran tidak sesuai: GT terdaftar pada tahun ajaran lampau, bukan tahun ajaran hijriah aktif saat ini (`Anda tidak terdaftar pada tahun ajaran ini (...)`).
+  - **`409 Conflict`**:
+    - `Akun sudah terdaftar. Anda bisa langsung login.` &mdash; Terjadi jika email yang didaftarkan sudah sama persis dengan email yang tersimpan di record GT tersebut. Langsung lanjutkan ke `request-otp`.
+  - **`422 Unprocessable Entity`**:
+    - Validasi input gagal. Contoh: format email tidak valid, field `otp` bukan 6 digit angka, atau ada field wajib yang kosong.
 }

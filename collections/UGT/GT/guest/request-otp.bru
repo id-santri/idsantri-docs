@@ -16,32 +16,86 @@ headers {
 
 body:json {
   {
-      "email":"x@x.x"
+    "email": "gt@example.com"
   }
 }
 
 tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
+  test("Status code is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
   
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_wali', token);
+  test("Respons berhasil", function() {
+    const data = res.getBody();
+    expect(data.error).to.be.false;
+    expect(data.type).to.equal("success");
+    expect(data.message).to.include("OTP berhasil dikirimkan");
   });
 }
 
 docs {
-  cara pakai
+  # Permintaan Kode OTP Login Guru Tugas (GT)
+
+  Mengirimkan kode One-Time Password (OTP) 6 digit baru ke alamat email GT yang sudah terdaftar untuk keperluan login.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Pastikan environment yang aktif dipilih (misalnya `idsantri-local`).
+  2. Pastikan email yang digunakan sudah terdaftar pada GT tahun ajaran aktif (melalui proses `register` atau data seeder/admin).
+  3. Masukkan email GT ke dalam Body JSON.
+  4. Kirim request `POST`.
+  5. Cek inbox email GT (atau log aplikasi/Mailpit/Mailhog di environment lokal) untuk melihat 6 digit kode OTP.
+  6. Gunakan kode tersebut pada request `verify-otp` dalam kurun waktu kurang dari 15 menit.
+
+  ## Request
+
+  - **Method**: `POST`
+  - **URL**: `{{url_ugt_gt}}/request-otp`
+  - **Auth**: `none`
+  - **Headers**:
+    - `Accept: application/json`
+    - `Content-Type: application/json`
+
+  ### Contoh Body JSON
+
+  ```json
+  {
+    "email": "gt@example.com"
+  }
+  ```
+
+  ### Spesifikasi Parameter Body
+
+  | Field | Tipe | Wajib? | Keterangan & Validasi |
+  | --- | --- | --- | --- |
+  | `email` | String | Ya | Format email valid yang sudah terdaftar pada record GT untuk tahun ajaran hijriah aktif. |
+
+  ## Alur & Aturan Sistem
+
+  1. **Pengecekan Data**: Sistem mencari record GT berdasarkan email dan tahun ajaran hijriah saat ini (`th_ajaran_h`). Jika email terdaftar pada tahun ajaran lama atau belum terdaftar sama sekali, request ditolak (`404 Not Found`).
+  2. **Jeda Pengiriman (Resend Throttle)**: Jika pengguna meminta OTP baru saat OTP sebelumnya masih aktif dan belum lewat dari 60 detik (`RESEND_THROTTLE_SECONDS`), sistem menolak dengan status `409 Conflict`.
+  3. **Masa Berlaku OTP**: OTP yang dikirim berlaku selama 15 menit (`OTP_EXPIRES_MINUTES = 15`).
+  4. **Keamanan**: OTP di-hash menggunakan `bcrypt` sebelum disimpan pada tabel `ugt_gt_login`.
+
+  ## Respons Berhasil
+
+  Status: `201 Created`
+
+  ```json
+  {
+    "error": false,
+    "message": "OTP berhasil dikirimkan. Silahkan cek email Anda.",
+    "type": "success",
+    "data": []
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`404 Not Found`**:
+    - `Tidak ditemukan data yang sesuai. Silakan register terlebih dahulu.` &mdash; Email tidak terdaftar pada tabel `ugt_gt` untuk tahun ajaran aktif saat ini. Jalankan `register` terlebih dahulu jika GT belum pernah mendaftar.
+  - **`409 Conflict`**:
+    - `Silakan tunggu beberapa saat sebelum meminta OTP baru.` &mdash; Pengguna meminta ulang OTP terlalu cepat (dalam interval kurang dari 60 detik). Tunggu hingga 60 detik berlalu sebelum mengirim request kembali.
+  - **`422 Unprocessable Entity`**:
+    - Field `email` tidak diisi atau format string bukan email yang valid.
 }

@@ -10,3 +10,66 @@ auth {
 auth:bearer {
   token: {{token_ugt_gt}}
 }
+
+docs {
+  # Laporan Bulanan GT (Guru Tugas)
+
+  Folder ini berisi koleksi request untuk mengelola laporan evaluasi bulanan GT. Seluruh request berada di bawah middleware `jwt` dan membutuhkan Bearer token GT yang valid (`{{token_ugt_gt}}`).
+
+  ## Konsep & Aturan Bisnis Laporan GT
+
+  ### 1. Autentikasi & Kepemilikan Laporan
+  - Identitas GT didapatkan secara otomatis dari klaim `sub.gt_id` pada JWT token. Client **tidak perlu** mengirimkan `gt_id` pada payload maupun URL.
+  - Seorang GT **hanya berhak** mengakses, mengedit, dan menghapus laporan miliknya sendiri. Mengakses ID laporan milik GT lain akan menghasilkan response `403 Forbidden` (`Data laporan bukan milik Anda.`).
+
+  ### 2. Konfigurasi Laporan Bulanan (`config_id`)
+  - Admin menentukan kalender jadwal laporan bulanan melalui konfigurasi laporan (`ugt_laporan_config`).
+  - Setiap periode laporan memiliki kode unik, misalnya: `1447-1448-01` (Tahun ajaran 1447-1448, Bulan ke-1).
+  - Satu GT **hanya boleh mengirimkan 1 laporan** untuk setiap konfigurasi (`config_id`). Mengirimkan laporan kedua pada konfigurasi yang sama akan ditolak dengan `409 Conflict` (`Anda sudah mengisi laporan sebelumnya.`).
+  - Tahun ajaran konfigurasi (`th_ajaran_h`) harus sama persis dengan tahun ajaran penugasan GT. Jika berbeda, sistem menolak dengan `422 Unprocessable Entity`.
+
+  ### 3. Status Terkunci (`locked`)
+  - Setiap konfigurasi laporan memiliki rentang waktu pengisian: `start` s/d `end`.
+  - Jika tanggal hari ini berada di luar rentang tanggal tersebut, maka laporan berstatus **terkunci** (`locked: true`).
+  - Laporan yang berstatus terkunci **tidak dapat dibuat, diubah, maupun dihapus** (mengembalikan `403 Forbidden` dengan pesan `Laporan sudah terkunci.`).
+
+  ## Alur Kerja Pengisian Laporan oleh GT
+
+  ```
+  1. Login via guest route (request-otp & verify-otp)
+     -> Token tersimpan di {{token_ugt_gt}}
+                 │
+                 ▼
+  2. GET /ugt/gt/laporan (index)
+     -> Melihat daftar bulan laporan pada tahun ajaran aktif
+     -> Cek apakah sudah lapor (id != null) dan apakah periode terkunci (locked: true/false)
+                 │
+                 ▼
+  3. POST /ugt/gt/laporan (store)
+     -> Isi laporan untuk config_id yang belum diisi dan belum terkunci
+                 │
+                 ▼
+  4. GET /ugt/gt/laporan/:id (show)
+     -> Melihat kembali detail data laporan yang telah dikirim
+                 │
+         ┌───────┴───────┐
+         ▼               ▼
+  5. PUT (update)   6. DELETE (destroy)
+  (Koreksi data)    (Hapus laporan)
+  *Hanya bisa jika periode belum terkunci!
+  ```
+
+  ## Daftar Request di Folder Ini
+
+  | Request | Method | Endpoint | Kegunaan | Body |
+  | --- | --- | --- | --- | --- |
+  | `index (get all)` | `GET` | `/ugt/gt/laporan` | Menampilkan seluruh daftar periode laporan tahun ajaran aktif beserta status pengisian dan status kunci (`locked`). | Tidak ada |
+  | `show(get by id)` | `GET` | `/ugt/gt/laporan/:id` | Menampilkan detail lengkap satu record laporan milik GT berdasarkan ID laporan. | Tidak ada |
+  | `store (create laporan)` | `POST` | `/ugt/gt/laporan` | Mengirim data laporan bulanan baru untuk konfigurasi periode tertentu. | JSON data laporan |
+  | `update (update laporan by id)` | `PUT` | `/ugt/gt/laporan/:id` | Memperbarui isi data laporan yang sudah pernah dikirim. | JSON data laporan |
+  | `destroy (delete Laporan by id)` | `DELETE` | `/ugt/gt/laporan/:id` | Menghapus record laporan bulanan yang telah dikirim. | Tidak ada |
+
+  ## Penanganan Autentikasi di Bruno
+
+  Semua request pada folder ini mewarisi autentikasi Bearer token dari setting folder (`auth: inherit`). Pastikan environment aktif memiliki token yang valid pada variabel `token_ugt_gt`. Jika token kedaluwarsa (`401 Unauthorized`), jalankan kembali alur login pada folder `guest`.
+}

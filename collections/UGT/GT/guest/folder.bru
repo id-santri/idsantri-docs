@@ -4,5 +4,72 @@ meta {
 }
 
 auth {
-  mode: inherit
+  mode: none
+}
+
+docs {
+  # Guest GT (Autentikasi & Onboarding Guru Tugas)
+
+  Folder ini berisi request publik (tanpa token) untuk alur registrasi awal dan login Guru Tugas (GT) menggunakan One-Time Password (OTP) via email.
+
+  ## Alur Autentikasi GT
+
+  Untuk mulai menggunakan API GT yang membutuhkan token (`/ugt/gt/me` dan `/ugt/gt/laporan/*`), ikuti alur berikut:
+
+  ```
+  [Admin membuat data GT di backend]
+                 │
+                 ▼
+     Apakah GT sudah punya email?
+         │                  │
+       (Belum)            (Sudah)
+         │                  │
+         ▼                  │
+    1. register             │
+  (gt_id, otp, email)       │
+         │                  │
+         └─────────┬────────┘
+                   ▼
+             2. request-otp
+                (email)
+                   │ (Kirim kode 6 digit ke email)
+                   ▼
+             3. verify-otp
+              (email, otp)
+                   │
+                   ▼
+     [Token disimpan ke token_ugt_gt]
+  ```
+
+  ### Tahap 1: Registrasi Akun (`register`) — Jika Belum Terdaftar
+  - Dilakukan sekali ketika data GT baru dibuat oleh admin pesantren dan belum memiliki email terdaftar.
+  - Membutuhkan ID GT (`gt_id`), OTP awal dari sistem/panitia (`otp`), dan email aktif GT (`email`).
+  - Setelah berhasil, email tersimpan dan OTP awal otomatis di-reset (`null`). Selanjutnya GT dapat langsung meminta OTP login.
+  - Jika akun sudah terdaftar sebelumnya dengan email tersebut, API mengembalikan status `409 Conflict`.
+
+  ### Tahap 2: Permintaan Kode OTP Login (`request-otp`)
+  - GT memasukkan email yang sudah terdaftar.
+  - Sistem membuat OTP 6 digit baru (berlaku 15 menit), menyimpannya di database secara terenkripsi (`bcrypt`), dan mengirimkannya ke inbox email GT.
+  - Terdapat jeda waktu permintaan ulang (resend throttle) selama 60 detik untuk mencegah spam email.
+
+  ### Tahap 3: Verifikasi OTP & Ambil Token (`verify-otp`)
+  - GT memasukkan email dan 6 digit OTP yang diterima dari email.
+  - Jika valid, API mengembalikan JWT Bearer Token.
+  - Test script Bruno pada request ini secara otomatis menyimpan token ke variabel environment `token_ugt_gt`.
+  - Token ini digunakan untuk seluruh request pada folder `Me (Profil)` dan `laporan`.
+  - Batas salah memasukkan OTP adalah maksimal 5 kali. Jika melebihi batas atau melewati masa berlaku (15 menit), data login dibatalkan dan GT harus meminta OTP baru.
+
+  ## Daftar Request di Folder Ini
+
+  | Request | Method | Endpoint | Kegunaan | Body JSON |
+  | --- | --- | --- | --- | --- |
+  | `register` | `POST` | `/ugt/gt/register` | Mendaftarkan email pertama kali untuk GT baru menggunakan OTP awal dari admin. | `gt_id`, `otp`, `email` |
+  | `request-otp` | `POST` | `/ugt/gt/request-otp` | Meminta kode OTP 6 digit untuk login yang dikirimkan ke email terdaftar. | `email` |
+  | `verify-otp` | `POST` | `/ugt/gt/verify-otp` | Memverifikasi kode OTP login dan menghasilkan Bearer token autentikasi. | `email`, `otp` |
+
+  ## Catatan Penting untuk Junior Developer / Tester
+
+  1. Pastikan memilih environment aktif (misalnya `idsantri-local`) yang mendefinisikan variabel `url_ugt_gt` (contoh: `http://127.0.0.1:8000/ugt/gt`).
+  2. Semua endpoint di folder ini bersifat publik (`auth: none`), tidak memerlukan header Authorization.
+  3. Format response selalu mengikuti standar `ResponseSuccess` (untuk status 2xx) dan `ResponseFail` (untuk status 4xx/5xx).
 }

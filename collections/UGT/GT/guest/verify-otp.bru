@@ -16,33 +16,108 @@ headers {
 
 body:json {
   {
-    "email":"x@x.x",
-    "otp":"463359"
+    "email": "gt@example.com",
+    "otp": "123456"
   }
 }
 
 tests {
-  test('set token', () => {
-      const responseJson = res.getBody();
-      const { data } = responseJson;
-      
-      // Verifikasi bahwa data adalah sebuah object  
-      test('Data should be an object', () => {  
-          expect(data).to.be.an('object');  
-      });  
+  test("Status code is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
   
-       // Dapatkan token dari data  
-      const token = data.token;  
-       // Verifikasi bahwa token ada dan memenuhi kriteria  
-      test('Token should exist, be a string, and have length more than 10', () => {  
-          expect(token).to.be.a('string');  
-          expect(token.length).to.be.above(10);  
-      });  
-  
-     bru.setEnvVar('token_ugt_gt', token);
+  test("Respons berhasil dan token tersimpan", function() {
+    const responseJson = res.getBody();
+    expect(responseJson.error).to.be.false;
+    expect(responseJson.type).to.equal("success");
+    
+    const { data } = responseJson;
+    expect(data).to.be.an("object");
+    
+    const token = data.token;
+    expect(token).to.be.a("string");
+    expect(token.length).to.be.above(10);
+    expect(data.type).to.equal("Bearer");
+    
+    // Simpan token ke environment aktif untuk digunakan pada request berikutnya
+    bru.setEnvVar("token_ugt_gt", token);
   });
 }
 
 docs {
-  cara pakai
+  # Verifikasi OTP & Login Guru Tugas (GT)
+
+  Memverifikasi kode OTP 6 digit yang telah dikirimkan ke email GT. Jika valid, endpoint ini mengembalikan JWT Bearer Token yang digunakan untuk autentikasi endpoint lainnya.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Jalankan `request-otp` terlebih dahulu untuk mendapatkan kode OTP.
+  2. Buka email GT dan salin 6 digit kode OTP yang diterima.
+  3. Masukkan `email` dan `otp` ke dalam Body JSON request ini.
+  4. Kirim request `POST`.
+  5. Script test Bruno akan otomatis menyimpan token ke variabel `token_ugt_gt` pada environment aktif.
+  6. Sekarang Anda dapat langsung membuka folder `Me (Profil)` atau `laporan` dan mengeksekusi request di sana tanpa perlu menyalin token secara manual!
+
+  ## Request
+
+  - **Method**: `POST`
+  - **URL**: `{{url_ugt_gt}}/verify-otp`
+  - **Auth**: `none`
+  - **Headers**:
+    - `Accept: application/json`
+    - `Content-Type: application/json`
+
+  ### Contoh Body JSON
+
+  ```json
+  {
+    "email": "gt@example.com",
+    "otp": "123456"
+  }
+  ```
+
+  ### Spesifikasi Parameter Body
+
+  | Field | Tipe | Wajib? | Keterangan & Validasi |
+  | --- | --- | --- | --- |
+  | `email` | String | Ya | Email terdaftar milik GT pada tahun ajaran aktif. |
+  | `otp` | String | Ya | Kode 6 digit angka yang diterima dari email. |
+
+  ## Alur & Aturan Sistem
+
+  1. **Verifikasi Hash OTP**: Sistem mencocokkan kode OTP yang dikirim dengan hash pada tabel `ugt_gt_login` menggunakan `Hash::check`.
+  2. **Batas Percobaan (Max Attempts)**: Maksimal kesalahan memasukkan OTP adalah 5 kali (`MAX_ATTEMPTS = 5`). Setiap kesalahan akan menaikkan counter `attempts`. Jika mencapai 5 kali, login dibatalkan dan OTP tidak dapat dipakai lagi.
+  3. **Masa Kedaluwarsa**: Jika OTP sudah melewati 15 menit sejak dikirim, request ditolak dan record login dihapus.
+  4. **Pembersihan Data Login**: Setelah OTP berhasil diverifikasi, record sementara pada `ugt_gt_login` langsung dihapus dari database.
+  5. **Pembuatan Token**: Sistem men-generate token JWT dengan payload `gt_id` dan `th_ajaran_h`, serta masa aktif sesuai konfigurasi (`config('jwt.ttl_gt')`).
+
+  ## Respons Berhasil
+
+  Status: `201 Created`
+
+  ```json
+  {
+    "error": false,
+    "message": "Selamat bertugas, Ahmad Santri",
+    "type": "success",
+    "data": {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJRCBTYW50cmkiLCJzdWIiOnsiZ3RfaWQiOjE4OSwidGhfYWphcmFuX2giOiIxNDQ3LTE0NDgiLCJwbGF0Zm9ybSI6InVndCJ9LCJpYXQiOjE3MD...",
+      "type": "Bearer"
+    }
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`401 Unauthorized`**:
+    - `OTP tidak valid atau sudah kedaluwarsa.` &mdash; Terjadi jika:
+      - Kode OTP salah.
+      - OTP sudah melewati batas waktu 15 menit.
+      - Sudah 5 kali berturut-turut salah memasukkan OTP.
+      - Pengguna belum pernah meminta OTP via `request-otp`.
+  - **`404 Not Found`**:
+    - `Tidak ditemukan data yang sesuai. Silakan register terlebih dahulu.` &mdash; Email tidak terdaftar di sistem untuk tahun ajaran aktif.
+    - `Data santri tidak ditemukan.` &mdash; Record santri yang berelasi dengan GT tidak ditemukan di database.
+  - **`422 Unprocessable Entity`**:
+    - Format email salah, atau OTP bukan berupa string 6 digit angka.
 }

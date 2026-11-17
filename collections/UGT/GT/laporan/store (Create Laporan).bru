@@ -16,53 +16,156 @@ headers {
 
 body:json {
   {
-    "config_id":"1447-1448-03",
-    "wali_kelas":[
+    "config_id": "1447-1448-03",
+    "wali_kelas": [
       {
-        "tingkat":"Ibtidaiyah",
-        "kelas":"6"        
+        "tingkat": "Ibtidaiyah",
+        "kelas": "6"
       }
     ],
-    "guru_fan":[
+    "guru_fan": [
       {
-        "tingkat":"Tsanawiyah",
-        "kelas":"1"  
+        "tingkat": "Tsanawiyah",
+        "kelas": "1"
       },
       {
-        "tingkat":"Ibtidaiyah",
-        "kelas":"4"  
+        "tingkat": "Ibtidaiyah",
+        "kelas": "4"
       }
     ],
-    "sex_murid":"Perempuan",
-    "absen":[
+    "sex_murid": "Perempuan",
+    "absen": [
       {
-        "sakit":1
+        "sakit": 1
       }
     ],
-    "kegiatan":[
+    "kegiatan": [
       {
-        "quran":"ya", //atau true/false
-        "kitab":"tidak" // atau true/false
+        "quran": "ya",
+        "kitab": "tidak"
       }
     ],
-    "hubungan":[
+    "hubungan": [
       {
-        "guru":"baik",
-        "pjgt":"baik"
+        "guru": "baik",
+        "pjgt": "baik"
       }
     ],
-    "bisyarah":[
+    "bisyarah": [
       {
-        "nominal":1000,
-        "tepat_waktu":true // true/false
+        "nominal": 1000,
+        "tepat_waktu": true
       }
     ],
-    "usul_saran":"text panjang"
+    "usul_saran": "Kondisi kegiatan belajar mengajar berjalan kondusif."
   }
 }
 
 docs {
-  # buat laporan baru
-  
-  aksi ditolak jika laporan bukan milik gt yang bersangkutan
+  # Membuat / Mengirim Laporan Bulanan Baru
+
+  Mengirimkan record laporan bulanan baru untuk konfigurasi periode tertentu (`config_id`). Identitas GT diambil secara otomatis dari Bearer token.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Jalankan `index (get all)` terlebih dahulu untuk melihat daftar periode laporan yang tersedia.
+  2. Pilih `config_id` yang memiliki `id: null` (belum diisi) dan `locked: false` (periode aktif/belum terkunci).
+  3. Masukkan `config_id` dan data formulir laporan pada Body JSON.
+  4. Kirim request `POST`.
+  5. Jika berhasil (`201 Created`), ID laporan baru akan dikembalikan pada respons.
+
+  ## Request
+
+  - **Method**: `POST`
+  - **URL**: `{{url_ugt_gt}}/laporan`
+  - **Auth**: Bearer token (`token_ugt_gt`) via inherit
+  - **Headers**:
+    - `Accept: application/json`
+    - `Content-Type: application/json`
+
+  ### Aturan Validasi Field Body
+
+  | Field | Tipe | Wajib? | Keterangan & Validasi |
+  | --- | --- | --- | --- |
+  | `config_id` | String | **Ya** | ID konfigurasi laporan (harus ada di tabel `ugt_laporan_config`). Tahun ajaran config harus sama dengan GT. |
+  | `wali_kelas` | Array of Objects | Tidak (nullable) | Data penugasan wali kelas. Contoh: `[{"tingkat": "Ibtidaiyah", "kelas": "6"}]`. |
+  | `guru_fan` | Array of Objects | Tidak (nullable) | Data pengampu mata pelajaran. Contoh: `[{"tingkat": "Tsanawiyah", "kelas": "1"}]`. |
+  | `sex_murid` | String | Tidak (nullable) | Jenis kelamin murid: `"Laki-Laki"` atau `"Perempuan"`. |
+  | `absen` | Array of Objects | Tidak (nullable) | Rekap kehadiran murid. Contoh: `[{"sakit": 1, "izin": 2, "alpa": 0}]`. |
+  | `kegiatan` | Array of Objects | Tidak (nullable) | Pelaksanaan kegiatan pembelajaran Al-Qur'an dan Kitab. Nilai string (misal: `"ya"` / `"tidak"`). |
+  | `hubungan` | Array of Objects | Tidak (nullable) | Evaluasi hubungan sosial GT. Contoh: `[{"guru": "baik", "pjgt": "baik"}]`. |
+  | `bisyarah` | Array of Objects | Tidak (nullable) | Data honorarium/bisyarah. Contoh: `[{"nominal": 1000, "tepat_waktu": true}]`. |
+  | `usul_saran` | String | Tidak (nullable) | Usulan, saran, atau kendala lapangan yang disampaikan oleh GT. |
+
+  > **PENTING**: Jangan mengirimkan `gt_id` pada body request. Sistem akan menyuntikkan `gt_id` secara otomatis dari JWT claims GT yang sedang login.
+
+  ## Respons Berhasil
+
+  Status: `201 Created`
+
+  ```json
+  {
+    "error": false,
+    "message": "Data berhasil disimpan",
+    "type": "success",
+    "data": {
+      "laporan": {
+        "id": 11,
+        "config_id": "1447-1448-03",
+        "gt_id": 189,
+        "wali_kelas": [
+          {
+            "tingkat": "Ibtidaiyah",
+            "kelas": "6"
+          }
+        ],
+        "guru_fan": [
+          {
+            "tingkat": "Tsanawiyah",
+            "kelas": "1"
+          }
+        ],
+        "sex_murid": "Perempuan",
+        "absen": [
+          {
+            "sakit": 1
+          }
+        ],
+        "kegiatan": [
+          {
+            "quran": "ya",
+            "kitab": "tidak"
+          }
+        ],
+        "hubungan": [
+          {
+            "guru": "baik",
+            "pjgt": "baik"
+          }
+        ],
+        "bisyarah": [
+          {
+            "nominal": 1000,
+            "tepat_waktu": true
+          }
+        ],
+        "usul_saran": "Kondisi kegiatan belajar mengajar berjalan kondusif.",
+        "created_at": "2025-09-01T08:15:00.000000Z",
+        "locked": false
+      }
+    }
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`401 Unauthorized`**: Token tidak valid atau sesi login kedaluwarsa.
+  - **`403 Forbidden`**:
+    - `Laporan sudah terkunci.` &mdash; Periode pengisian untuk `config_id` tersebut telah ditutup oleh admin atau tanggal hari ini sudah melewati batas akhir `end`.
+  - **`409 Conflict`**:
+    - `Anda sudah mengisi laporan sebelumnya.` &mdash; GT sudah pernah membuat record laporan untuk `config_id` tersebut. Satu GT hanya boleh mengisi 1 laporan per periode. Jika ingin mengubah isinya, gunakan request `update (update laporan by id)`.
+  - **`422 Unprocessable Entity`**:
+    - `config_id` tidak dikirim atau tidak terdaftar di database.
+    - `Tahun ajaran GT dan konfigurasi laporan tidak sesuai.` &mdash; Tahun ajaran `config_id` berbeda dengan tahun ajaran GT yang sedang login.
+    - Tipe data salah (misalnya `wali_kelas` bukan array).
 }

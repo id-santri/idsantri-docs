@@ -16,53 +16,158 @@ headers {
 
 body:json {
   {
-    "config_id":"1447-1448-03",
-    "wali_kelas":[
+    "config_id": "1447-1448-03",
+    "wali_kelas": [
       {
-        "tingkat":"Ibtidaiyah",
-        "kelas":"6"
+        "tingkat": "Ibtidaiyah",
+        "kelas": "6"
       }
     ],
-    "guru_fan":[
+    "guru_fan": [
       {
-        "tingkat":"Tsanawiyah",
-        "kelas":"1"
+        "tingkat": "Tsanawiyah",
+        "kelas": "1"
       },
       {
-        "tingkat":"Ibtidaiyah",
-        "kelas":"4"
+        "tingkat": "Ibtidaiyah",
+        "kelas": "4"
       }
     ],
-    "sex_murid":"Perempuan",
-    "absen":[
+    "sex_murid": "Perempuan",
+    "absen": [
       {
-        "sakit":1
+        "sakit": 1
       }
     ],
-    "kegiatan":[
+    "kegiatan": [
       {
-        "quran":"ya", //atau true/false
-        "kitab":"tidak" // atau true/false
+        "quran": "ya",
+        "kitab": "tidak"
       }
     ],
-    "hubungan":[
+    "hubungan": [
       {
-        "guru":"baik",
-        "pjgt":"baik"
+        "guru": "baik",
+        "pjgt": "baik"
       }
     ],
-    "bisyarah":[
+    "bisyarah": [
       {
-        "nominal":1000,
-        "tepat_waktu":true // true/false
+        "nominal": 1000,
+        "tepat_waktu": true
       }
     ],
-    "usul_saran":"text panjang"
+    "usul_saran": "Koreksi data usulan dan catatan kegiatan lapangan."
   }
 }
 
 docs {
-  # update laporan berdasarkan id laporan
-  
-  aksi ditolak jika laporan bukan milik gt yang bersangkutan
+  # Memperbarui Laporan GT Berdasarkan ID
+
+  Memperbarui data isi laporan bulanan yang sebelumnya telah dikirimkan oleh GT.
+
+  ## Syarat Memperbarui Laporan
+
+  Untuk dapat mengupdate laporan:
+  1. Record laporan harus merupakan **milik GT yang sedang login**.
+  2. Konfigurasi periode laporan yang lama maupun yang baru **tidak boleh berstatus terkunci** (`locked: false`).
+  3. Tahun ajaran pada `config_id` harus sama dengan tahun ajaran penugasan GT.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Ambil ID laporan milik Anda dari hasil `index (get all)` atau saat `store`.
+  2. Sesuaikan ID pada path URL (`/laporan/:id`), misalnya `/laporan/10`.
+  3. Perbarui nilai-nilai field pada Body JSON.
+  4. Kirim request `PUT`.
+
+  ## Request
+
+  - **Method**: `PUT`
+  - **URL**: `{{url_ugt_gt}}/laporan/:id`
+  - **Auth**: Bearer token (`token_ugt_gt`) via inherit
+  - **Headers**:
+    - `Accept: application/json`
+    - `Content-Type: application/json`
+
+  ### Aturan Validasi Field Body
+
+  | Field | Tipe | Wajib? | Keterangan & Validasi |
+  | --- | --- | --- | --- |
+  | `config_id` | String | **Ya** | ID konfigurasi laporan. Harus valid dan tahun ajaran sesuai. |
+  | `wali_kelas` | Array of Objects | Tidak (nullable) | Data wali kelas. |
+  | `guru_fan` | Array of Objects | Tidak (nullable) | Data guru mata pelajaran. |
+  | `sex_murid` | String | Tidak (nullable) | `"Laki-Laki"` atau `"Perempuan"`. |
+  | `absen` | Array of Objects | Tidak (nullable) | Rekap kehadiran murid. |
+  | `kegiatan` | Array of Objects | Tidak (nullable) | Evaluasi Al-Qur'an dan Kitab (misal `"ya"` / `"tidak"`). |
+  | `hubungan` | Array of Objects | Tidak (nullable) | Evaluasi hubungan sosial. |
+  | `bisyarah` | Array of Objects | Tidak (nullable) | Rincian honorarium/bisyarah. |
+  | `usul_saran` | String | Tidak (nullable) | Catatan teks usulan dan saran. |
+
+  ## Respons Berhasil
+
+  Status: `200 OK`
+
+  ```json
+  {
+    "error": false,
+    "message": "Data berhasil diupdate",
+    "type": "success",
+    "data": {
+      "laporan": {
+        "id": 10,
+        "config_id": "1447-1448-03",
+        "gt_id": 189,
+        "wali_kelas": [
+          {
+            "tingkat": "Ibtidaiyah",
+            "kelas": "6"
+          }
+        ],
+        "guru_fan": [
+          {
+            "tingkat": "Tsanawiyah",
+            "kelas": "1"
+          }
+        ],
+        "sex_murid": "Perempuan",
+        "absen": [
+          {
+            "sakit": 1
+          }
+        ],
+        "kegiatan": [
+          {
+            "quran": "ya",
+            "kitab": "tidak"
+          }
+        ],
+        "hubungan": [
+          {
+            "guru": "baik",
+            "pjgt": "baik"
+          }
+        ],
+        "bisyarah": [
+          {
+            "nominal": 1000,
+            "tepat_waktu": true
+          }
+        ],
+        "usul_saran": "Koreksi data usulan dan catatan kegiatan lapangan.",
+        "created_at": "2025-09-01T08:15:00.000000Z",
+        "locked": false
+      }
+    }
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`401 Unauthorized`**: Token Bearer tidak valid atau sesi login kedaluwarsa.
+  - **`403 Forbidden`**:
+    - `Data laporan bukan milik Anda.` &mdash; Laporan dengan ID tersebut adalah milik GT lain.
+    - `Laporan sudah terkunci.` &mdash; Jadwal pengisian laporan periode ini sudah ditutup sehingga tidak dapat diubah lagi.
+  - **`404 Not Found`**: ID laporan tidak ditemukan pada database.
+  - **`409 Conflict`**: Terjadi jika mengubah `config_id` ke periode yang sudah pernah diisi oleh GT.
+  - **`422 Unprocessable Entity`**: Validasi gagal (misal `config_id` salah atau tahun ajaran tidak cocok).
 }

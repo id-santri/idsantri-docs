@@ -6,7 +6,7 @@ meta {
 
 delete {
   url: {{url_ugt_gt}}/laporan/9
-  body: json
+  body: none
   auth: inherit
 }
 
@@ -15,7 +15,49 @@ headers {
 }
 
 docs {
-  # hapus laporan berdasarkan id laporan
-  
-  aksi ditolak jika laporan bukan milik gt yang bersangkutan
+  # Menghapus Laporan GT Berdasarkan ID
+
+  Menghapus record laporan bulanan yang telah dikirimkan oleh GT.
+
+  ## Syarat Menghapus Laporan
+
+  Laporan hanya dapat dihapus jika:
+  1. Record laporan adalah **milik GT yang sedang login**.
+  2. Periode konfigurasi laporan terkait **belum terkunci** (`locked: false`). Jika periode sudah ditutup oleh admin, laporan tidak boleh dihapus.
+
+  ## Cara Menggunakan di Bruno
+
+  1. Ambil ID laporan milik Anda dari hasil `index (get all)`.
+  2. Sesuaikan ID laporan pada URL (`/laporan/:id`), misalnya `/laporan/9`.
+  3. Kirim request `DELETE`. Tidak memerlukan body.
+
+  ## Request
+
+  - **Method**: `DELETE`
+  - **URL**: `{{url_ugt_gt}}/laporan/:id`
+  - **Auth**: Bearer token (`token_ugt_gt`) via inherit
+  - **Headers**:
+    - `Accept: application/json`
+  - **Body**: Tidak ada
+
+  ## Respons Berhasil
+
+  Status: `200 OK`
+
+  ```json
+  {
+    "error": false,
+    "message": "Data berhasil dihapus",
+    "type": "success"
+  }
+  ```
+
+  ## Respons Gagal & Penanganannya
+
+  - **`401 Unauthorized`**: Token tidak valid atau sesi login kedaluwarsa.
+  - **`403 Forbidden`**:
+    - `Data laporan bukan milik Anda.` &mdash; Laporan dengan ID tersebut milik GT lain.
+    - `Laporan sudah terkunci.` &mdash; Periode laporan sudah ditutup sehingga data permanen dan tidak dapat dihapus.
+  - **`404 Not Found`**:
+    - `Data tidak ditemukan` &mdash; Record laporan dengan ID tersebut tidak ditemukan pada database.
 }
