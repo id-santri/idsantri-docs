@@ -1,5 +1,5 @@
 meta {
-  name: show(get by id)
+  name: show (get by id)
   type: http
   seq: 2
 }
@@ -16,29 +16,29 @@ headers {
 
 docs {
   # Detail Laporan GT Berdasarkan ID
-
+  
   Mengambil rincian data laporan bulanan yang pernah dikirimkan oleh GT berdasarkan ID record laporan (`ugt_laporan_gt.id`).
-
+  
   ## Cara Menggunakan di Bruno
-
+  
   1. Pastikan variabel `token_ugt_gt` berisi token JWT GT yang valid.
   2. Dapatkan ID laporan dari hasil request `index (get all)` (kolom `data.laporan[].id`).
   3. Ganti angka ID pada path URL (`/laporan/:id`), misalnya `/laporan/7`.
   4. Kirim request `GET`.
-
+  
   ## Request
-
+  
   - **Method**: `GET`
   - **URL**: `{{url_ugt_gt}}/laporan/:id`
   - **Auth**: Bearer token (`token_ugt_gt`) via inherit
   - **Headers**:
     - `Accept: application/json`
   - **Body**: Tidak ada
-
+  
   ## Respons Berhasil
-
+  
   Status: `200 OK`
-
+  
   ```json
   {
     "error": false,
@@ -66,51 +66,44 @@ docs {
           }
         ],
         "sex_murid": "Perempuan",
-        "absen": [
-          {
-            "sakit": 1
-          }
-        ],
-        "kegiatan": [
-          {
-            "quran": "ya",
-            "kitab": "tidak"
-          }
-        ],
-        "hubungan": [
-          {
-            "guru": "baik",
-            "pjgt": "baik"
-          }
-        ],
-        "bisyarah": [
-          {
-            "nominal": 1000,
-            "tepat_waktu": true
-          }
-        ],
-        "usul_saran": "Kondisi kegiatan belajar mengajar berjalan dengan baik.",
+        "absen": {
+          "sakit": 1,
+          "izin": 3
+        },
+        "kegiatan": {
+          "quran": "ya",
+          "kitab": "tidak"
+        },
+        "hubungan": {
+          "guru": "baik",
+          "pjgt": "baik"
+        },
+        "bisyarah": {
+          "nominal": -1000,
+          "tepat_waktu": true
+        },
+        "usul_saran": "Koreksi data usulan dan catatan kegiatan lapangan.",
         "created_at": "2025-09-01T08:00:00.000000Z",
         "locked": false
       }
     }
   }
   ```
-
+  
   ### Penjelasan Struktur Data
-
+  
   - `wali_kelas`: Array of object berisi tingkat dan kelas di mana GT menjabat sebagai wali kelas.
   - `guru_fan`: Array of object berisi tingkat dan kelas untuk mata pelajaran (fan) yang diajar.
   - `sex_murid`: Jenis kelamin murid yang diajar (`"Laki-Laki"` atau `"Perempuan"`).
-  - `absen`: Array of object rekap absensi ketidakhadiran santri/murid.
-  - `kegiatan`: Array of object status kegiatan pengajaran Al-Qur'an dan Kitab.
-  - `hubungan`: Array of object evaluasi hubungan sosial GT dengan guru dan PJGT.
-  - `bisyarah`: Array of object informasi nominal dan ketepatan waktu bisyarah (honorarium).
+  - `absen`: Object key-value rekap absensi ketidakhadiran santri/murid (contoh: `sakit`, `izin`, dan alasan lainnya).
+  - `kegiatan`: Object key-value status pelaksanaan kegiatan (Al-Qur'an, Kitab, atau kegiatan lainnya).
+  - `hubungan`: Object key-value evaluasi hubungan sosial GT dengan guru, PJGT, atau pihak terkait.
+  - `bisyarah`: Object key-value informasi nominal dan ketepatan waktu bisyarah (honorarium).
   - `usul_saran`: Catatan usulan dan saran dari GT ke pihak pesantren.
   - `locked`: Status apakah periode laporan ini sudah terkunci atau masih bisa diedit.
-
+  
   ## Respons Gagal & Penanganannya
-
+  
   - **`401 Unauthorized`**: Token tidak valid atau sesi login kedaluwarsa.
   - **`403 Forbidden`**:
     - `Data laporan bukan milik Anda.` &mdash; Record laporan dengan ID tersebut ada, namun milik GT lain. GT dilarang melihat laporan milik orang lain.

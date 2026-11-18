@@ -17,6 +17,7 @@ headers {
 body:json {
   {
     "config_id": "1447-1448-03",
+    // array of objects
     "wali_kelas": [
       {
         "tingkat": "Ibtidaiyah",
@@ -34,63 +35,56 @@ body:json {
       }
     ],
     "sex_murid": "Perempuan",
-    "absen": [
-      {
-        "sakit": 1
-      }
-    ],
-    "kegiatan": [
-      {
-        "quran": "ya",
-        "kitab": "tidak"
-      }
-    ],
-    "hubungan": [
-      {
-        "guru": "baik",
-        "pjgt": "baik"
-      }
-    ],
-    "bisyarah": [
-      {
-        "nominal": 1000,
-        "tepat_waktu": true
-      }
-    ],
-    "usul_saran": "Koreksi data usulan dan catatan kegiatan lapangan."
+    "absen": {
+      "sakit": 1,
+      "izin": 3
+    },
+    "kegiatan": {
+      "quran": "ya",
+      "kitab": "tidak"
+    },
+    "hubungan": {
+      "guru": "baik",
+      "pjgt": "baik"
+    },
+    "bisyarah": {
+      "nominal": 1000,
+      "tepat_waktu": true
+    },
+    "usul_saran": "Kondisi kegiatan belajar mengajar berjalan kondusif."
   }
 }
 
 docs {
   # Memperbarui Laporan GT Berdasarkan ID
-
+  
   Memperbarui data isi laporan bulanan yang sebelumnya telah dikirimkan oleh GT.
-
+  
   ## Syarat Memperbarui Laporan
-
+  
   Untuk dapat mengupdate laporan:
   1. Record laporan harus merupakan **milik GT yang sedang login**.
   2. Konfigurasi periode laporan yang lama maupun yang baru **tidak boleh berstatus terkunci** (`locked: false`).
   3. Tahun ajaran pada `config_id` harus sama dengan tahun ajaran penugasan GT.
-
+  
   ## Cara Menggunakan di Bruno
-
+  
   1. Ambil ID laporan milik Anda dari hasil `index (get all)` atau saat `store`.
   2. Sesuaikan ID pada path URL (`/laporan/:id`), misalnya `/laporan/10`.
   3. Perbarui nilai-nilai field pada Body JSON.
   4. Kirim request `PUT`.
-
+  
   ## Request
-
+  
   - **Method**: `PUT`
   - **URL**: `{{url_ugt_gt}}/laporan/:id`
   - **Auth**: Bearer token (`token_ugt_gt`) via inherit
   - **Headers**:
     - `Accept: application/json`
     - `Content-Type: application/json`
-
+  
   ### Aturan Validasi Field Body
-
+  
   | Field | Tipe | Wajib? | Keterangan & Validasi |
   | --- | --- | --- | --- |
   | `config_id` | String | **Ya** | ID konfigurasi laporan. Harus valid dan tahun ajaran sesuai. |
@@ -102,11 +96,11 @@ docs {
   | `hubungan` | Array of Objects | Tidak (nullable) | Evaluasi hubungan sosial. |
   | `bisyarah` | Array of Objects | Tidak (nullable) | Rincian honorarium/bisyarah. |
   | `usul_saran` | String | Tidak (nullable) | Catatan teks usulan dan saran. |
-
+  
   ## Respons Berhasil
-
+  
   Status: `200 OK`
-
+  
   ```json
   {
     "error": false,
@@ -160,9 +154,9 @@ docs {
     }
   }
   ```
-
+  
   ## Respons Gagal & Penanganannya
-
+  
   - **`401 Unauthorized`**: Token Bearer tidak valid atau sesi login kedaluwarsa.
   - **`403 Forbidden`**:
     - `Data laporan bukan milik Anda.` &mdash; Laporan dengan ID tersebut adalah milik GT lain.

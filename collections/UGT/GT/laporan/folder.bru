@@ -33,6 +33,18 @@ docs {
   - Jika tanggal hari ini berada di luar rentang tanggal tersebut, maka laporan berstatus **terkunci** (`locked: true`).
   - Laporan yang berstatus terkunci **tidak dapat dibuat, diubah, maupun dihapus** (mengembalikan `403 Forbidden` dengan pesan `Laporan sudah terkunci.`).
 
+  ### 4. Struktur Data Laporan GT
+  Data laporan bulanan (`store` dan `update`) menggunakan format JSON dengan struktur:
+  - `config_id` (String): Kode konfigurasi periode laporan (contoh: `"1447-1448-03"`).
+  - `wali_kelas` (Array of Objects): Penugasan wali kelas (`[{"tingkat": "Ibtidaiyah", "kelas": "6"}]`).
+  - `guru_fan` (Array of Objects): Pengampu mata pelajaran (`[{"tingkat": "Tsanawiyah", "kelas": "1"}]`).
+  - `sex_murid` (String): Jenis kelamin murid (`"Laki-Laki"` atau `"Perempuan"`).
+  - `absen` (Object): Rekap absensi ketidakhadiran murid format key-value (`{"sakit": 1, "izin": 3}`).
+  - `kegiatan` (Object): Status pelaksanaan kegiatan format key-value (`{"quran": "ya", "kitab": "tidak"}`).
+  - `hubungan` (Object): Evaluasi hubungan sosial GT format key-value (`{"guru": "baik", "pjgt": "baik"}`).
+  - `bisyarah` (Object): Rincian honorarium/bisyarah format key-value (`{"nominal": -1000, "tepat_waktu": true}`).
+  - `usul_saran` (String): Catatan usulan dan evaluasi lapangan dari GT.
+
   ## Alur Kerja Pengisian Laporan oleh GT
 
   ```
