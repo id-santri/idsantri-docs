@@ -1,5 +1,5 @@
 meta {
-  name: login all
+  name: login
   type: http
   seq: 1
 }
@@ -16,8 +16,8 @@ headers {
 
 body:json {
   {
-      "login":"all",
-      "password":"112233"
+      "login":"{{login_user}}",
+      "password":"{{login_password}}"
   }
 }
 
