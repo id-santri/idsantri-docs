@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{url_admin}}/ugt/config-laporan
+  url: {{url_admin}}/ugt/laporan-config
   body: json
   auth: bearer
 }
@@ -20,9 +20,10 @@ auth:bearer {
 
 body:json {
   {
-      "th_ajaran_h":"1447-1448",
-      "bulan":"3",
-      "start":"2006-09-10",
-      "end":"2006-10-10"
+    "th_ajaran_h":"1447-1448",
+    "bulan":"5",
+    "laporan_ke":3,
+    "start":"2006-09-10",
+    "end":"2006-10-10"
   }
 }

@@ -1,0 +1,20 @@
+meta {
+  name: index
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{url_admin}}/ugt/laporan-gt?config_id=1447-1448-11
+  body: none
+  auth: bearer
+}
+
+params:query {
+  config_id: 1447-1448-11
+  ~gt_id: 189
+}
+
+auth:bearer {
+  token: {{token_admin}}
+}
