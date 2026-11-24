@@ -16,40 +16,56 @@ headers {
 
 body:json {
   {
-    "config_id": "1447-1448-02",
+    "config_id": "1447-1448-01",
+  
+    // array of objects
     "wali_kelas": [
       {
         "tingkat": "Ibtidaiyah",
-        "kelas": "6"
+        "kelas": "6",
+        "sex_murid":"Laki-Laki"
       }
     ],
+    
+    // array of objects
     "guru_fan": [
       {
         "tingkat": "Tsanawiyah",
-        "kelas": "1"
+        "kelas": "1",
+        "sex_murid":"Perempuan"
       },
       {
         "tingkat": "Ibtidaiyah",
-        "kelas": "4"
+        "kelas": "4",
+        "sex_murid":"Campuran"
       }
     ],
-    "sex_murid": "Perempuan",
+    
+    // object
     "absen": {
       "sakit": 1,
       "izin": 3
     },
+    
+    // object
     "kegiatan": {
       "quran": "ya",
       "kitab": "tidak"
     },
+    
+    // object
     "hubungan": {
-      "guru": "baik",
-      "pjgt": "baik"
+      "pjgt": "baik",
+      "guru": "baik"
     },
+  
+    // object
     "bisyarah": {
       "nominal": 1000,
-      "tepat_waktu": true
+      "tepat_waktu": true,
+      "tgl_terima":"2026-12-22"
     },
+    
     "usul_saran": "Kondisi kegiatan belajar mengajar berjalan kondusif."
   }
 }
