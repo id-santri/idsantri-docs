@@ -15,31 +15,31 @@ headers {
 }
 
 docs {
-  # Menampilkan Profil GT
-
+  # Menampilkan Profil GT & PJGT
+  
   Mengambil profil GT yang sedang login. Identitas GT dibaca dari klaim `gt_id` pada bearer token, jadi request ini tidak menerima ID GT melalui URL, query parameter, atau body.
-
+  
   ## Cara menggunakan
-
+  
   1. Pilih environment yang sesuai, misalnya `idsantri-local`. Pastikan `url_base` mengarah ke server API dan `url_ugt_gt` mengarah ke prefix `/ugt/gt`.
   2. Pastikan environment memiliki `token_ugt_gt` yang masih valid. Pada koleksi ini autentikasi diwarisi dari folder `Me (Profil)`.
   3. Jika belum memiliki token atau token sudah kedaluwarsa, jalankan alur login GT: `register` bila GT belum terdaftar, lalu `request-otp` dan `verify-otp`. Request `verify-otp` menyimpan `data.token` ke `token_ugt_gt` pada environment aktif.
   4. Kirim request GET ini. Tidak perlu mengirim body atau query parameter.
-
+  
   ## Request
-
+  
   - Method: `GET`
   - URL: `{{url_ugt_gt}}/me`
   - Auth: Bearer token dari `token_ugt_gt`
   - Header: `Accept: application/json`
   - Body: tidak ada
-
+  
   ## Respons berhasil
-
+  
   Status: `200 OK`
-
+  
   `data.gt` berisi profil gabungan GT, data santri, PJGT, dan tahun ajaran. Bentuk contoh:
-
+  
   ```json
   {
     "error": false,
@@ -64,15 +64,35 @@ docs {
         "pjgt_wilayah": "Wilayah Timur",
         "pjgt_jenis_lembaga": "MTs",
         "pjgt_nama_lembaga": "MTs Al-Hikmah"
+      },
+   	"pjgt": {
+        "id": 56,
+        "nama": "Ust. Nasrullah AM",
+        "wilayah": "Bangkalan",
+        "jenis_lembaga": "YPI",
+        "nama_lembaga": "As-Syafa'ah",
+        "jl": "Sapa'ah",
+        "rt": 1,
+        "rw": 1,
+        "desa": "Kombangan",
+        "kecamatan": "Sepulu",
+        "kabupaten": "Kab. Sampang",
+        "provinsi": "Jawa Timur",
+        "kode_pos": null,
+        "sex": "L",
+        "telepon": "085130331604",
+        "email": null,
+        "alamat_pendek": "Kombangan Sepulu Kab. Sampang",
+        "alamat_lengkap": "Sapa'ah RT 001 RW 001 Kombangan Sepulu Kab. Sampang Jawa Timur"
       }
     }
   }
   ```
-
+  
   Nilai di atas hanya contoh. Data yang dikembalikan mengikuti GT pada token aktif. Profil tidak ditemukan (`404`) bila GT tidak ada atau relasi santri/PJGT yang dibutuhkan view tidak tersedia.
-
+  
   ## Respons gagal
-
+  
   - `401 Unauthorized`: token tidak dikirim, tidak valid, atau kedaluwarsa. Periksa environment aktif dan ulangi login OTP bila diperlukan.
   - `404 Not Found`: profil GT tidak ditemukan.
 }
