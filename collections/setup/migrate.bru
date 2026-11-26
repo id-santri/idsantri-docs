@@ -1,13 +1,17 @@
 meta {
-  name: views
+  name: migrate
   type: http
-  seq: 5
+  seq: 1
 }
 
 get {
-  url: {{url_admin}}/setup/views
+  url: {{url_base}}/setup/migrate?token={{token_setup}}
   body: none
   auth: bearer
+}
+
+params:query {
+  token: {{token_setup}}
 }
 
 headers {

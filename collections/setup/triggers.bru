@@ -1,17 +1,13 @@
 meta {
-  name: migrate
+  name: triggers
   type: http
-  seq: 1
+  seq: 6
 }
 
 get {
-  url: {{url_admin}}/setup/migrate?token=2026-08-01
+  url: {{url_base}}/setup/triggers
   body: none
   auth: bearer
-}
-
-params:query {
-  token: 2026-08-01
 }
 
 headers {
